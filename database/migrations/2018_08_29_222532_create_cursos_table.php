@@ -15,7 +15,7 @@ class CreateCursosTable extends Migration
     {
         Schema::create('cursos', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('tipoCurso', 100);
             $table->string('modalidade', 100);
             $table->string('denominacaoCurso', 150);
@@ -27,6 +27,7 @@ class CreateCursosTable extends Migration
             $table->string('regimeLetivo', 100);
             $table->string('periodos', 100);
             $table->timestamps();
+
         });
     }
 

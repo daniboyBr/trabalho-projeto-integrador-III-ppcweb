@@ -17,6 +17,15 @@ class Curso extends Model
         'vagaTurno',
         'cargaHorariaCurso',
         'regimeLetivo',
-        'periodos'
+        'periodos',
+        'coordenador_id'
     ];
+
+    protected $guarded = [
+        'id'
+    ];
+
+    function coordenador(){
+        return $this->belongsTo('App\Coordenador','coordenador_id')->withTrashed();
+    }
 }

@@ -15,4 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    return redirect('/');
+});
+
 Route::resource('cursos', 'CursoController');
+Route::resource('coordenador', 'CoordenadorController');
