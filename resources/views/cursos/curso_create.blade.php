@@ -156,46 +156,47 @@
 @section('js')
     <script>
 
+        var coordenadores ='';
+
         @if(request()->route()->getName() == 'cursos.show')
 
-            $('input').attr('disabled','disabled');
-            $('select').attr('disabled','disabled');
+        $('input').attr('disabled','disabled');
+        $('select').attr('disabled','disabled');
 
-            function remover(id){
+        function remover(id){
 
-                var token = $('meta[name=csrf-token]').attr('content');
+            var token = $('meta[name=csrf-token]').attr('content');
 
-                var confirmacao = confirm('Realmente deseja remover os dados?');
-                if(confirmacao){
-                    var formData = new FormData();
-                    $.ajax({
-                        method: 'POST',
-                        url: '{{route('cursos.destroy',$curso->id)}}',
-                        data: {
-                            _token: token,
-                            _method: 'DELETE',
-                            id: id
-                        },
-                        dataType: 'json',
-                        success: function (data) {
-                            alert('Curso removido com sucesso');
-                            window.location.href = '{{route('cursos.index')}}';
-                        }
-                    });
-                }
+            var confirmacao = confirm('Realmente deseja remover os dados?');
+            if(confirmacao){
+                var formData = new FormData();
+                $.ajax({
+                    method: 'POST',
+                    url: '{{route('cursos.destroy',$curso->id)}}',
+                    data: {
+                        _token: token,
+                        _method: 'DELETE',
+                        id: id
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        alert('Curso removido com sucesso');
+                        window.location.href = '{{route('cursos.index')}}';
+                    }
+                });
             }
+        }
         @else
-            $('#btnSalvar').on('click',function (e) {
-                e.preventDefault();
-                var confirmacao = confirm('Realmente deseja submeter os dados?');
-                if(confirmacao){
-                    $('#formCursos').submit();
-                }
-            });
+        $('#btnSalvar').on('click',function (e) {
+            e.preventDefault();
+            var confirmacao = confirm('Realmente deseja submeter os dados?');
+            if(confirmacao){
+                $('#formCursos').submit();
+            }
+        });
         @endif
 
         $(document).ready(function () {
-            var coordenadores;
             var nome = $('#coordenador_nome').val();
             $.ajax({
                 method: 'GET',
@@ -203,16 +204,33 @@
                 dataType:'json',
                 success: function (data) {
                     coordenadores = data;
+
+                    var idCoordenadorId = $('#coordenador_id').val();
+                    var existe = false;
+
                     $.each(data, function (i,item) {
+
+                        if(data[i].id == idCoordenadorId){
+                            existe = true;
+                        }
+
                         var opcao = '<option value="'+data[i].id+'">'+data[i].nomeCoordenador+'</option>';
                         $('#coordenadorList').append(opcao);
-                    })
+                    });
 
-                    // $('#coordenadorList option:selected').text(nome);
+                    var nomeCoord = $('#coordenador_nome').val();
+                    if(nomeCoord != ''){
+                        if(!existe){
+                            $('#coordenadorList').append('<option value="'+idCoordenadorId+'" selected="selected" class="sofDeleted" disabled="disabled">'+nomeCoord+'</option>');
+                        }
+                    }
+
                     $('#coordenadorList').find('option[text="'+nome+'"]').val();
                 }
             });
-            
+
+
+
             $('#coordenadorList').on('change',function () {
                 var opcao = $('#coordenadorList').val();
                 $.each(coordenadores, function (i,item) {
@@ -220,28 +238,16 @@
                         $('#cpfCoordenador').val(coordenadores[i].cpfCoordenador);
                         $('#titulacaoCoordenador').val(coordenadores[i].titulacaoCoordenador);
                         $('#tempoDedicacaoCoordenador').val(coordenadores[i].tempoDedicacaoCoordenador);
+                        $('.sofDeleted').remove();
                     }else if(opcao == '') {
                         $('#cpfCoordenador').val('');
                         $('#titulacaoCoordenador').val('');
                         $('#tempoDedicacaoCoordenador').val('');
+                        $('.sofDeleted').remove();
                     }
                 });
             });
 
-        });
-
-        $(document).ready(function () {
-            var nome = $('#coordenador_nome').val();
-            if(nome != ''){
-                var id = $('#coordenador_id').val();
-                var select = [];
-                $("#coordenadorList option").each(function () {
-                    select.push($(this).text());
-                });
-                if(select.indexOf(nome) == (-1)){
-                    $('#coordenadorList').append('<option value="'+id+'" selected="selected" class="sofDeleted" disabled="disabled">'+nome+'</option>');
-                }
-            }
         });
     </script>
 
