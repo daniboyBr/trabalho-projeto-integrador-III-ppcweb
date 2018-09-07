@@ -114,7 +114,7 @@
                     <select name="coordenador_id" id="coordenadorList" class="form-control form-control-sm col-sm-6 mr-3 {{ $errors->has('coordenador_id')? 'is-invalid' : ''}}">
                         <option value="">-- Selecione um Coordenador --</option>
                     </select>
-                    <button type="button" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> <strong>Novo Coordenador</strong></button>
+                    <a href="{{route('coordenador.create')}}" class="btn btn-sm btn-primary" id="novoCoordenador"><i class="fa fa-plus"></i> Novo Coordenador</a>
                     <br><br>
                     @if ($errors->has('coordenador_id'))
                         <small class="text-danger ml-5">{{ $errors->first('coordenador_id') }}</small>
@@ -248,6 +248,10 @@
                 });
             });
 
+        });
+
+        $('#novoCoordenador').on('click', function () {
+            console.log('{{request()->headers->get('referer')}}');
         });
     </script>
 

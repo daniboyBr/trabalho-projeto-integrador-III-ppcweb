@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Coordenador;
+use App\Http\Requests\CoordenadorRequest;
 use Illuminate\Http\Request;
 
 class CoordenadorController extends Controller
@@ -27,7 +28,13 @@ class CoordenadorController extends Controller
      */
     public function create()
     {
-        //
+        $coordenador = new Coordenador();
+        if(request()->ajax()){
+            if(!empty($data)){
+                return response()->json($data);
+            }
+        }
+        return view('coordenador.coordenador_create', ['coordenador' => $coordenador]);
     }
 
     /**
@@ -36,9 +43,11 @@ class CoordenadorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CoordenadorRequest $request)
     {
-        //
+        $request->validated();
+        $form = $request->all();
+        $coordenador = Coordenador::create($form);
     }
 
     /**
