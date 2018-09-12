@@ -162,6 +162,7 @@
 
         $('input').attr('disabled','disabled');
         $('select').attr('disabled','disabled');
+        $('#novoCoordenador').hide();
 
         function remover(id){
 
@@ -226,6 +227,13 @@
                     }
 
                     $('#coordenadorList').find('option[text="'+nome+'"]').val();
+
+                    @if(request()->session()->has('coordenador_id'))
+                        $('#coordenadorList option[value="{{session()->get('coordenador_id')}}"]').attr('selected', 'selected').trigger('change');
+                    @php
+                        session()->flush();
+                    @endphp
+                    @endif
                 }
             });
 
@@ -250,9 +258,6 @@
 
         });
 
-        $('#novoCoordenador').on('click', function () {
-            console.log('{{request()->headers->get('referer')}}');
-        });
     </script>
 
 @endsection

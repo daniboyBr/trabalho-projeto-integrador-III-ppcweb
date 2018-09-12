@@ -48,6 +48,11 @@ class CoordenadorController extends Controller
         $request->validated();
         $form = $request->all();
         $coordenador = Coordenador::create($form);
+
+        $url = session()->get('url');
+        if(isset($url) && (preg_match('/\/cursos\/[0-9]{1,}\/edit/', $url) || preg_match('/\/cursos\/create/', $url))){
+            return redirect()->to($url)->with('coordenador_id', $coordenador->id);
+        }
     }
 
     /**

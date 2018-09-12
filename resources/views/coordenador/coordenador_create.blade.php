@@ -3,6 +3,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('conteudo')
+    {{session()->flash('url', request()->header('referer'))}}
     <br><br><br><br>
     <div class="row">
         <div class="offset-md-2 col-md-9">
