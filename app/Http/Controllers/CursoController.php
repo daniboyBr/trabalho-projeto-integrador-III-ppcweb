@@ -6,6 +6,7 @@ use App\Coordenador;
 use App\Curso;
 use App\Http\Requests\CursoRequest;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CursoController extends Controller
 {
@@ -28,12 +29,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        $curso = new Curso();
-        $coordenador = new Coordenador();
-        $curso->coordenador = $coordenador;
-        return view('cursos/curso_create',[
-            'curso'=> $curso
-        ]);
+        return  view('cursos/curso_create');
     }
 
     /**
@@ -47,7 +43,7 @@ class CursoController extends Controller
         $request->validated();
         $form = $request->all();
         $curso = Curso::create($form);
-        return redirect()->route('cursos.show',$curso->id);
+//        return redirect()->route('cursos.show',$curso->id);
     }
 
     /**
@@ -58,15 +54,11 @@ class CursoController extends Controller
      */
     public function show($id)
     {
-        $curso = Curso::find($id);
+        $curso = Curso::with('coordenador')->find($id);
         if(request()->ajax()){
-            if(!empty($data)){
-                return response()->json($data);
-            }
+            return response()->json($curso);
         }
-        return view('cursos/curso_create',[
-            'curso'=>$curso,
-        ]);
+        return view('cursos.curso_show', ['curso_id' => $curso->id]);
     }
 
     /**
@@ -78,9 +70,12 @@ class CursoController extends Controller
     public function edit($id)
     {
         $curso = Curso::find($id);
-        return view('cursos/curso_create',[
-            'curso'=>$curso,
-        ]);
+        if(request()->ajax()){
+            if(!empty($data)){
+                return response()->json($data);
+            }
+        }
+        return view('cursos/curso_edit',['curso_id'=>$curso->id]);
     }
 
     /**
