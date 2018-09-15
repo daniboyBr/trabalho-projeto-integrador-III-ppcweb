@@ -17,32 +17,50 @@
         </div>
     </div><br>
     <div class="row">
-        <table class="table table-sm table-bordered text-center">
-            <thead>
-            <tr>
-                <th>Codigo</th>
-                <th>Curso</th>
-                <th>Numero de Vagas</th>
-                <th>Carga Horária</th>
-                <th>Ação</th>
-            </tr>
-            </thead>
-            <tbody>
-                @if(isset($data) && !empty($data))
-                    @foreach($data as $row)
-                        <tr>
-                            <td>{{$row->id}}</td>
-                            <td>{{$row->denominacaoCurso}}</td>
-                            <td>{{$row->vagaTurno}}</td>
-                            <td>{{$row->cargaHorariaCurso}}</td>
-                            <td><a href="{{route('cursos.show',$row->id)}}" class="btn btn-primary">Visualizar</a></td>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
+        <div class="col-md-12">
+            <table class="table table-sm table-bordered text-center display" id="tableCursos" style="width: 100%;">
+                <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Curso</th>
+                    <th>Numero de Vagas</th>
+                    <th>Carga Horária</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 @endsection
 @section('js')
-    <script src="/js/curso.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tableCursos').DataTable({
+                language:{
+                    url:"/js/DataTables/datatable-pt-br.json"
+                },
+                searching: false,
+                // paging: false,
+                info: true,
+                ajax: {
+                    url: '{{route("cursos.index")}}',
+                    type: 'GET'
+                },
+                columns: [
+                    { data: "id" },
+                    { data: "denominacaoCurso" },
+                    { data: "vagaTurno" },
+                    { data: "cargaHorariaCurso" },
+                    {
+                        mRender: function ( data, type, row ) {
+                            return '<a href="/cursos/'+row.id+'" class="btn btn-primary btn-sm">Visualizar</a>';
+                        }
+                    }
+                ]
+            });
+
+        });
+
+    </script>
 @endsection

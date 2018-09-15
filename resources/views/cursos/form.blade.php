@@ -92,6 +92,7 @@
         </div>
     </div>
     <div class="row d-flex flex-row-reverse">
+        <a href="#" id="btnCancelar" class="btn btn-sm btn-danger ml-2">Cancelar</a>
         <button type="submit" id="btnSalvar" class="btn btn-success btn-sm">Salvar</button>
     </div>
 </form>

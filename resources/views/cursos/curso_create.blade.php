@@ -16,6 +16,10 @@
         $(document).ready(function () {
             $('.error').hide();
 
+            $('#btnCancelar').on('click',function () {
+                window.location.href = '/cursos';
+            });
+
             $('<input>').attr({
                 type: 'hidden',
                 id: '_token',
@@ -62,7 +66,8 @@
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function (data) {
-                        alert(data.message);
+                        alert('Curso cadastrado com sucesso!');
+                        window.location.href = '/cursos/'+data.curso_id;
                     },
                     error: function (data) {
                         var erros = data.responseJSON.errors;

@@ -8,6 +8,7 @@
 
         <link href="/css/app.css" rel="stylesheet">
         <link rel="stylesheet" href="/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="/js/DataTables/datatables.min.css"/>
 
         @yield('css')
 
@@ -36,6 +37,8 @@
         <script src="/js/jquery-3.3.1.min.js"></script>
         <script src="/js/app.js"></script>
         <script src="/js/all.min.js"></script>
+        <script type="text/javascript" src="/js/DataTables/datatables.min.js"></script>
+
         @yield('js')
     </body>
 </html>

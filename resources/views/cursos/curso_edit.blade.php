@@ -16,6 +16,10 @@
         var coordenadores = [];
 
         $(document).ready(function () {
+            $('#btnCancelar').on('click',function () {
+                window.history.back();
+            });
+
             $.ajax({
                 method: 'GET',
                 url: '{{route('coordenador.index')}}',
@@ -52,9 +56,6 @@
                     });
                 }
             });
-
-
-
 
             $('#coordenadorList').on('change',function () {
                 var opcao = $('#coordenadorList').val();

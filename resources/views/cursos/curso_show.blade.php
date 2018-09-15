@@ -5,8 +5,9 @@
         <div class="offset-md-2 col-md-9">
             <h3>Vizualizar Curso</h3>
             @include('cursos.form')
-            <div class="row offset-11">
-                <button onclick="remover()" class="btn btn-danger btn-sm">Remover</button>
+            <div class="row d-flex flex-row-reverse">
+                <button onclick="remover()" class="btn btn-danger btn-sm ml-2">Remover</button>
+                <button class="btn btn-warning btn-sm">Atualizar</button>
             </div>
             <br><br><br>
         </div>
@@ -17,7 +18,8 @@
         $(document).ready(function () {
             $('#formCursos :input').prop('disabled',true);
             $('#formCursos select').prop('disabled',true);
-            $('.btn').not('.btn-danger').remove();
+            $('.btn').not('.btn-danger').not('.btn-warning').remove();
+            $('#btnCancelar').remove();
 
             $.ajax({
                 method: 'GET',

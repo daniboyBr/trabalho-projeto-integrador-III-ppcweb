@@ -18,8 +18,11 @@ class CursoController extends Controller
      */
     public function index()
     {
-        $data = Curso::get();
-        return view('cursos/cursos',['data'=> $data]);
+        if(request()->ajax()){
+            $data = Curso::get();
+            return response()->json(['data'=>$data]);
+        }
+        return view('cursos/cursos');
     }
 
     /**
@@ -41,9 +44,13 @@ class CursoController extends Controller
     public function store(CursoRequest $request)
     {
         $request->validated();
+
         $form = $request->all();
         $curso = Curso::create($form);
-//        return redirect()->route('cursos.show',$curso->id);
+        $dados = [
+            'curso_id'=> $curso->id
+        ];
+        return response()->json($dados);
     }
 
     /**
@@ -69,13 +76,15 @@ class CursoController extends Controller
      */
     public function edit($id)
     {
-        $curso = Curso::find($id);
-        if(request()->ajax()){
-            if(!empty($data)){
-                return response()->json($data);
+        if(in_numeric($id)){
+            if(request()->ajax()){
+                $curso = Curso::find($id);
+                if(!empty($data)){
+                    return response()->json($data);
+                }
             }
+            return view('cursos/curso_edit', $id);
         }
-        return view('cursos/curso_edit',['curso_id'=>$curso->id]);
     }
 
     /**
