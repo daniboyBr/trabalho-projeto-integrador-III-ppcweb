@@ -15,10 +15,15 @@ class CoordenadorController extends Controller
      */
     public function index()
     {
-        $coordenador = Coordenador::all();
         if(request()->ajax()){
+            if(request()->has('all')){
+                $coordenador['data'] = Coordenador::withTrashed()->get();
+                return response()->json($coordenador);
+            }
+            $coordenador = Coordenador::all();
             return response()->json($coordenador);
         }
+        return view('coordenador/coordenador_home');
     }
 
     /**
@@ -28,13 +33,7 @@ class CoordenadorController extends Controller
      */
     public function create()
     {
-        $coordenador = new Coordenador();
-        if(request()->ajax()){
-            if(!empty($data)){
-                return response()->json($data);
-            }
-        }
-        return view('coordenador.coordenador_create', ['coordenador' => $coordenador]);
+        return view('coordenador.coordenador_create', ['coordenador_id' => '']);
     }
 
     /**
@@ -48,11 +47,11 @@ class CoordenadorController extends Controller
         $request->validated();
         $form = $request->all();
         $coordenador = Coordenador::create($form);
-
-        $url = session()->get('url');
-        if(isset($url) && (preg_match('/\/cursos\/[0-9]{1,}\/edit/', $url) || preg_match('/\/cursos\/create/', $url))){
-            return redirect()->to($url)->with('coordenador_id', $coordenador->id);
-        }
+        return response()->json(['coordenador_id'=>$coordenador->id]);
+//        $url = session()->get('url');
+//        if(isset($url) && (preg_match('/\/cursos\/[0-9]{1,}\/edit/', $url) || preg_match('/\/cursos\/create/', $url))){
+//            return redirect()->to($url)->with('coordenador_id', $coordenador->id);
+//        }
     }
 
     /**
@@ -63,7 +62,18 @@ class CoordenadorController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $coordenador = Coordenador::withTrashed()->find($id);
+                if(!empty($coordenador)){
+                    return response()->json($coordenador);
+                }else{
+                    return response()->json(['message'=>'Coordenador não encontrado.'],422);
+                }
+            }
+            return view('coordenador/coordenador_show',['coordenador_id'=>$id]);
+        }
     }
 
     /**
@@ -74,7 +84,18 @@ class CoordenadorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $coordenador = Coordenador::withTrashed()->find($id);
+                if(!empty($coordenador)){
+                    return response()->json($coordenador);
+                }else{
+                    return reponse()->json(['message'=>'Coordenador não encontrado.'], 422);
+                }
+            }
+            return view('coordenador/coordenador_edit',['coordenador_id'=>$id]);
+        }
     }
 
     /**
@@ -84,9 +105,22 @@ class CoordenadorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CoordenadorRequest $request, $id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $request->validated();
+                $form = $request->all();
+                try{
+                    Coordenador::withTrashed()->find($id)->update($form);
+                    return response()->json(['coordenador_id'=>$id]);
+                }catch (Exception $e){
+                    return response()->json(['error'=>'Não foi possivel atualizar.'],422);
+                }
+            }
+            return view('coordenador/coordenador_edit',['coordenador_id'=>$id]);
+        }
     }
 
     /**
@@ -97,6 +131,18 @@ class CoordenadorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $coordenador = Coordenador::find($id);
+                if(!empty($coordenador)){
+                    $coordenador->delete();
+                    return response()->json(true);
+                }else{
+                    return response()->json(['message'=>'Coordenador não encontrado.'],422);
+                }
+            }
+            return view('coordenador/coordenador_show',['coordenador_id'=>$id]);
+        }
     }
 }

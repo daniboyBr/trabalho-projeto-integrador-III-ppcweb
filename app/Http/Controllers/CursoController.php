@@ -23,7 +23,7 @@ class CursoController extends Controller
             $data = Curso::get();
             return response()->json(['data'=>$data]);
         }
-        return view('cursos/cursos');
+        return view('cursos/cursos_home');
     }
 
     /**

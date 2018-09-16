@@ -7,7 +7,7 @@
     <br><br><br><br>
     <div class="row">
         <div class="offset-md-2 col-md-9">
-            <h2>Novo Coordenador</h2>
+            <h2>Atualizar Coordenador</h2>
             <hr>
             @include('coordenador.form')
         </div>
@@ -16,11 +16,31 @@
 @section('js')
     <script>
         $(document).ready(function () {
+            var id = $('#coordenador_id').val();
 
             $('.error').hide();
 
             $('#btnCancelar').on('click',function () {
                 window.location.href = '/coordenador';
+            });
+
+            $.ajax({
+                method: 'GET',
+                url: '/coordenador/'+id,
+                dataType: 'json',
+                success: function (data) {
+                    $.each(data, function (chave, valor) {
+                        if(chave == 'id') {
+                            $('#coordenador_id').val(valor);
+                        }else{
+                            $('#'+chave).val(valor);
+                        }
+                    });
+                },
+                error: function (data) {
+                    var erro = data.responseJSON.message;
+                    alert(erro);
+                }
             });
 
             $('<input>').attr({
@@ -30,15 +50,22 @@
                 value: $('meta[name=csrf-token]').attr('content')
             }).appendTo($('#formCoordenador'));
 
+            $('<input>').attr({
+                type: 'hidden',
+                id: '_method',
+                name: '_method',
+                value: 'PUT'
+            }).appendTo($('#formCoordenador'));
+
             $('#formCoordenador').submit(function (e) {
                 e.preventDefault();
                 $.ajax({
                     method:'POST',
-                    url: '/coordenador',
+                    url: '/coordenador/'+id,
                     dataType: 'json',
                     data: $(this).serialize(),
                     success: function(data) {
-                        alert('Coordenador cadastrado com sucesso!');
+                        alert('Coordenador atualizado com sucesso!');
                         window.location.href = '/coordenador/'+data.coordenador_id;
                     },
                     error: function (data) {
