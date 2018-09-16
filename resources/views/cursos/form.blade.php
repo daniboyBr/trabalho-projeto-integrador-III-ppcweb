@@ -1,5 +1,5 @@
 <form action="" id="formCursos" method="POST">
-    <input type="hidden" name="id" id="curso_id">
+    <input type="hidden" name="id" id="curso_id" value="{{$curso_id}}">
     <div class="form-group row">
         <label for="tipoCurso" class="col-xs-3 col-form-label mr-0 pr-0">Tipo do Curso:</label>
         <div class="col-sm-4">
@@ -65,17 +65,18 @@
         </div>
     </div>
     <h3>Coordenador de Curso: </h3>
-    <div class="form-group row">
+    <div class="form-group row mb-0 pb-0">
         <input type="hidden" id="coordenador_id">
         <label for="coordenadorList" class="col-xs-2 pr-1">Nome:</label>
         <select name="coordenador_id" id="coordenadorList" class="form-control form-control-sm col-sm-6 mr-3">
             <option value="">-- Selecione um Coordenador --</option>
         </select>
         <a href="{{route('coordenador.create')}}" class="btn btn-sm btn-primary" id="novoCoordenador"><i class="fa fa-plus"></i> Novo Coordenador</a>
-        <br><br>
+    </div>
+    <div class="form-group row mb-0 pb-0">
         <small class="text-danger ml-5 error" id="error-coordenador_id"></small>
     </div>
-    <div class="form-group row">
+    <div class="form-group row mt-1 pt-1">
         <label for="cpfCoordenador" class="col-xs-2 pr-1">CPF:</label>
         <div class="col-sm-5">
             <input type="text" class="form-control form-control-sm" id="cpfCoordenador" name="cpfCoordenador" placeholder="Preenchido Automaticamente" disabled="disabled">

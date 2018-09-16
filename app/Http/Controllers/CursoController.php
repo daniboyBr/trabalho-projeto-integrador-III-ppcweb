@@ -7,6 +7,7 @@ use App\Curso;
 use App\Http\Requests\CursoRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Mockery\Exception;
 
 class CursoController extends Controller
 {
@@ -32,7 +33,7 @@ class CursoController extends Controller
      */
     public function create()
     {
-        return  view('cursos/curso_create');
+        return  view('cursos/curso_create',['curso_id'=>'']);
     }
 
     /**
@@ -61,11 +62,21 @@ class CursoController extends Controller
      */
     public function show($id)
     {
-        $curso = Curso::with('coordenador')->find($id);
-        if(request()->ajax()){
-            return response()->json($curso);
+
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $curso = Curso::with('coordenador')->find($id);
+                if(!empty($curso)){
+                    return response()->json($curso);
+                }else{
+                    $data = ['error' => 'Usuario não encontrado'];
+                    return response()->json($data, 404);
+                }
+            }
+            return view('cursos/curso_show', ['curso_id'=>$id]);
         }
-        return view('cursos.curso_show', ['curso_id' => $curso->id]);
+        abort(404, 'Página não encontrada');
     }
 
     /**
@@ -76,15 +87,20 @@ class CursoController extends Controller
      */
     public function edit($id)
     {
-        if(in_numeric($id)){
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
             if(request()->ajax()){
-                $curso = Curso::find($id);
-                if(!empty($data)){
-                    return response()->json($data);
+                $curso = Curso::with('coordenador')->find($id);
+                if(!empty($curso)){
+                    return response()->json($curso);
+                }else{
+                    $data = ['error' => 'Usuario não encontrado'];
+                    return response()->json($data, 404);
                 }
             }
-            return view('cursos/curso_edit', $id);
+            return view('cursos/curso_edit', ['curso_id'=>$id]);
         }
+        abort(404, 'Página não encontrada');
     }
 
     /**
@@ -96,10 +112,20 @@ class CursoController extends Controller
      */
     public function update(CursoRequest $request, $id)
     {
-        $request->validated();
-        $form = $request->all();
-        Curso::find($id)->update($form);
-        return redirect()->route('cursos.show',$id);
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $request->validated();
+                $form = $request->all();
+                try{
+                    Curso::find($id)->update($form);
+                    return response()->json(['curso_id'=>$id]);
+                }catch (Exception $e){
+                    return response()->json(['error'=>'Não foi possivel'],500);
+                }
+
+            }
+        }
     }
 
     /**
@@ -110,7 +136,22 @@ class CursoController extends Controller
      */
     public function destroy($id)
     {
-        Curso::find($id)->delete();
-        return response()->json('true');
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_integer($id)){
+            $curso = Curso::find($id);
+            if(!empty($curso)){
+                try{
+                    $curso->delete();
+                    return response()->json('true');
+                }catch (Exception $e){
+                    $data = ['error' => 'Não foi possivel Remover!'];
+                    return response()->json($data, 404);
+                }
+            }else{
+                $data = ['error' => 'Não foi possivel Remover. Usuario não encontrado'];
+                return response()->json($data, 404);
+            }
+        }
+        abort(404, 'Página não encontrada');
     }
 }
