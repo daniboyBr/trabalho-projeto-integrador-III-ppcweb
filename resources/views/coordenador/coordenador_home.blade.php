@@ -14,7 +14,7 @@
             <h2>Coordenador</h2>
         </div>
         <div class="col-md-3 offset-7 text-right mt-1">
-            <a href="/coordenador/create" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Novo curso</a>
+            <a href="/coordenador/create" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Novo Coordenador</a>
         </div>
     </div><br>
     <div class="row">
