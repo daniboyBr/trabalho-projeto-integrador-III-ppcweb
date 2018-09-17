@@ -1,6 +1,11 @@
 $(document).ready(function () {
     $('.error').hide();
 
+    cursoSolicitacao();
+
+    reload();
+
+
     $('#btnCancelar').on('click',function () {
         window.location.href = '/coordenador';
     });
@@ -21,7 +26,11 @@ $(document).ready(function () {
             data: $(this).serialize(),
             success: function(data) {
                 alert('Coordenador cadastrado com sucesso!');
-                window.location.href = '/coordenador/'+data.coordenador_id;
+                if(data.hasOwnProperty('curso_url')){
+                    window.history.back(-2);
+                }else{
+                    window.location.href = '/coordenador/'+data.coordenador_id;
+                }
             },
             error: function (data) {
                 var erros = data.responseJSON.errors;
@@ -41,3 +50,23 @@ $(document).ready(function () {
         }
     });
 });
+
+function cursoSolicitacao() {
+    var url = document.referrer;
+    if(url.indexOf('cursos') != -1){
+        $('<input>').attr({
+            type: 'hidden',
+            id: 'curso_url',
+            name: 'curso_url',
+            value: url
+        }).appendTo($('#formCoordenador'));
+    }
+}
+
+
+function reload() {
+    var url = document.referrer;
+    if(url.indexOf('coordenador') != -1){
+        window.location.reload();
+    }
+}

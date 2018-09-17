@@ -48,6 +48,9 @@ class CoordenadorController extends Controller
         $request->validated();
         $form = $request->all();
         $coordenador = Coordenador::create($form);
+        if(request()->has('curso_url')){
+            return response()->json(['curso_url'=> request()->get('curso_url'),'coordenador_id'=>$coordenador->id]);
+        }
         return response()->json(['coordenador_id'=>$coordenador->id]);
     }
 

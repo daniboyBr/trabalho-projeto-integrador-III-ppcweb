@@ -33,11 +33,18 @@
 
 @section('conteudo')
     <div class="row d-flex justify-content-center align-middle">
-        <div class="dashboard bg-primary col-md-2 text-center">
+        <div class="dashboard bg-primary col-md-2 mr-3 text-center">
             <a href="/cursos">
-                <i class="fas fa-chalkboard-teacher fa-5x"></i>
-                <strong>Cursos<strong>
+                <i class="fas fa-graduation-cap fa-5x"></i><br>
+                <strong>Cursos</strong>
             </a>
         </div>
+        <div class="dashboard bg-primary col-md-2 text-center">
+            <a href="/coordenador">
+                <i class="fas fa-chalkboard-teacher fa-5x"></i>
+                <strong>Coordenador</strong>
+            </a>
+        </div>
+
     </div>
 @endsection

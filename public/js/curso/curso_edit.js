@@ -1,6 +1,8 @@
 $(document).ready(function () {
     var id = $('#curso_id').val();
 
+    reload();
+
     $('#btnCancelar').on('click',function () {
         window.history.back();
     });
@@ -39,7 +41,7 @@ $(document).ready(function () {
                                 }
                             });
                             if(!exists){
-                                alert('Por gentileza atulizar o coodernador do Curso pois o presente coordenador não está mais disponível');
+                                alert('Por gentileza atualizar o coodernador do Curso, pois o presente coordenador esta INATIVO');
                                 $('<option>').attr({
                                     selected: 'selected',
                                     disabled: 'disabled',
@@ -86,3 +88,10 @@ $(document).ready(function () {
         });
     });
 });
+
+function reload() {
+    var url = document.referrer;
+    if(url.indexOf('coordenador') != -1){
+        window.location.reload();
+    }
+}
