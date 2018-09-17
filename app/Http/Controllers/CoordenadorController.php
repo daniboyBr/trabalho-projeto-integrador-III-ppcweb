@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Coordenador;
 use App\Http\Requests\CoordenadorRequest;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class CoordenadorController extends Controller
 {
@@ -48,10 +49,6 @@ class CoordenadorController extends Controller
         $form = $request->all();
         $coordenador = Coordenador::create($form);
         return response()->json(['coordenador_id'=>$coordenador->id]);
-//        $url = session()->get('url');
-//        if(isset($url) && (preg_match('/\/cursos\/[0-9]{1,}\/edit/', $url) || preg_match('/\/cursos\/create/', $url))){
-//            return redirect()->to($url)->with('coordenador_id', $coordenador->id);
-//        }
     }
 
     /**
@@ -137,12 +134,46 @@ class CoordenadorController extends Controller
                 $coordenador = Coordenador::find($id);
                 if(!empty($coordenador)){
                     $coordenador->delete();
-                    return response()->json(true);
+                    return response()->json(true,200);
                 }else{
                     return response()->json(['message'=>'Coordenador não encontrado.'],422);
                 }
             }
             return view('coordenador/coordenador_show',['coordenador_id'=>$id]);
+        }
+    }
+
+    public function restore(Request $request){
+        if($request->has('id')){
+            $id = (int) filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
+            $coordenador = Coordenador::withTrashed()->find($id);
+            if(!empty($coordenador)){
+                try{
+                    $coordenador->restore();
+                    return response()->json(true,200);
+                }catch (Exception $e){
+                    return response()->json(['message'=>'Não foi possivel restaurar o Coordenador'], 422);
+                }
+            }else{
+                return response()->json(['message'=>'Coordenador não encontrado'], 422);
+            }
+        }
+    }
+
+    public function remove(Request $request){
+        if($request->has('id')){
+            $id = (int) filter_var($request->id, FILTER_SANITIZE_NUMBER_INT);
+            $coordenador = Coordenador::withTrashed()->find($id);
+            if(!empty($coordenador)){
+                try{
+                    $coordenador->forcedelete();
+                    return response()->json(true,200);
+                }catch (Exception $e){
+                    return response()->json(['message'=>'Não foi possivel excluir o Coordenador'], 422);
+                }
+            }else{
+                return response()->json(['message'=>'Coordenador não encontrado'], 422);
+            }
         }
     }
 }

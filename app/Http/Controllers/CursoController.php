@@ -20,6 +20,15 @@ class CursoController extends Controller
     public function index()
     {
         if(request()->ajax()){
+            if(request()->has('coordenador_id')){
+                $id = (int) filter_var(request()->get('coordenador_id'), FILTER_SANITIZE_NUMBER_INT);
+                if(is_integer($id)){
+                    $data = Curso::with('coordenador')->where('coordenador_id',$id)->get();
+                    return response()->json(['data'=>$data]);
+                }else{
+                    return response()->json(['message'=>'Erro ao buscar cursos associados.'], 422);
+                }
+            }
             $data = Curso::get();
             return response()->json(['data'=>$data]);
         }

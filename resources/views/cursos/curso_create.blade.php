@@ -6,8 +6,9 @@
     <br><br><br><br>
     <div class="row">
         <div class="offset-md-2 col-md-9">
-                <h2>Novo Curso</h2>
-                @include('cursos.form')
+            <h2>Novo Curso</h2>
+            <hr>
+            @include('cursos.form')
         </div>
     </div>
 @endsection

@@ -21,4 +21,6 @@ Route::get('/cache', function() {
 });
 
 Route::resource('cursos', 'CursoController');
+Route::post('coordenador/restore', 'CoordenadorController@restore');
+Route::delete('coordenador/remove', 'CoordenadorController@remove');
 Route::resource('coordenador', 'CoordenadorController');

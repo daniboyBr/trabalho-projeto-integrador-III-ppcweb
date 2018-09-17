@@ -6,7 +6,8 @@
     <br><br><br><br>
     <div class="row">
         <div class="offset-md-2 col-md-9">
-            <h3>Vizualizar Curso</h3>
+            <h3>Dados do Curso</h3>
+            <hr>
             @include('cursos.form')
             <div class="row d-flex flex-row-reverse">
                 <button onclick="remover()" class="btn btn-danger btn-sm ml-2">Remover</button>
