@@ -27,7 +27,7 @@ $(document).ready(function () {
             success: function(data) {
                 alert('Coordenador cadastrado com sucesso!');
                 if(data.hasOwnProperty('curso_url')){
-                    window.history.back(-2);
+                    window.location.replace(data.curso_url);
                 }else{
                     window.location.href = '/coordenador/'+data.coordenador_id;
                 }

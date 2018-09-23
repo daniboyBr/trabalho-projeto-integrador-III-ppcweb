@@ -33,6 +33,42 @@ $(document).ready(function () {
             window.location.href = '/cursos';
         }
     });
+
+    $('#tableDisciplinas').DataTable({
+        language:{
+            url:"/js/DataTables/datatable-pt-br.json"
+        },
+        searching: false,
+        info: true,
+        ajax: {
+            url: '/disciplinas',
+            type: 'GET',
+            dataType: 'json',
+            data:{
+                curso_id: $('#curso_id').val(),
+            },
+            // dataSrc:  function(res){
+            //     cursos = res.data.length;
+            //     quantidadeDeCuros(cursos);
+            //     return res.data;
+            // },
+            error:function (data) {
+                alert(data.responseJSON.message);
+            }
+        },
+        columns: [
+            { data: "codigoDisciplina" },
+            { data: "nomeDisciplina" },
+            { data: "descricaoDisciplina" },
+            { data: "semestreDisciplina" },
+            { data: "cargaHorariaDisciplina" },
+            {
+                mRender: function ( data, type, row ) {
+                    return '<a href="/disciplinas/'+row.id+'" class="btn btn-primary btn-sm">Visualizar</a>';
+                }
+            }
+        ]
+    });
 });
 
 function remover(){

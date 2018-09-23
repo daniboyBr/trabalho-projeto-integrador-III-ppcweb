@@ -30,7 +30,12 @@ class CursoController extends Controller
                 }
             }
             $data = Curso::get();
-            return response()->json(['data'=>$data]);
+            if(!empty($data)){
+                return response()->json(['data'=>$data]);
+            }else{
+                $data = ['error' => 'Curos não encontrados'];
+                return response()->json($data, 404);
+            }
         }
         return view('cursos/cursos_home');
     }

@@ -24,3 +24,5 @@ Route::resource('cursos', 'CursoController');
 Route::post('coordenador/restore', 'CoordenadorController@restore');
 Route::delete('coordenador/remove', 'CoordenadorController@remove');
 Route::resource('coordenador', 'CoordenadorController');
+Route::resource('disciplinas', 'DisciplinasController');
+

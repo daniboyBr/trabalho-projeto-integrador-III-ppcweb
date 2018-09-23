@@ -1,0 +1,161 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Disciplina;
+use App\Http\Requests\DisciplinasRequest;
+use Illuminate\Http\Request;
+use Mockery\Exception;
+
+class DisciplinasController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        if(request()->ajax()){
+            if(request()->has('curso_id')){
+                $curso_id = request()->get('curso_id');
+                $disciplinas = Disciplina::where('curso_id',$curso_id)->get();
+                if(!empty($disciplinas)){
+                    return response()->json(['data'=>$disciplinas]);
+                }else{
+                    return response()->json(['message'=>'Disciplina não encontrada.'],422);
+                }
+            }
+            $data = Disciplina::get();
+            return response()->json(['data'=>$data]);
+        }
+        return view('disciplinas/disciplinas_home');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('disciplinas.disciplinas_create', ['disciplina_id' => '']);
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(DisciplinasRequest $request)
+    {
+        $request->validated();
+        $form = $request->all();
+        $disciplina = Disciplina::create($form);
+        $dados = [
+            'disciplina_id'=> $disciplina->id
+        ];
+        return response()->json($dados);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $disciplinas = Disciplina::with('curso')->find($id);
+                if(!empty($disciplinas)){
+                    return response()->json($disciplinas);
+                }else{
+                    return response()->json(['message'=>'Disciplina não encontrada.'],422);
+                }
+            }
+            return view('disciplinas/disciplinas_show',['disciplina_id'=>$id]);
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $disciplina = Disciplina::find($id);
+                if(!empty($disciplina)){
+                    return response()->json($disciplina);
+                }else{
+                    return reponse()->json(['message'=>'Disciplina não encontrado.'], 422);
+                }
+            }
+            return view('disciplinas/disciplinas_edit',['disciplina_id'=>$id]);
+        }else{
+            abort(404,'Página não encontrada');
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(DisciplinasRequest $request, $id)
+    {
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $request->validated();
+                $form = $request->all();
+                try{
+                    Disciplina::find($id)->update($form);
+                    return response()->json(['disciplina_id'=>$id]);
+                }catch (Exception $e){
+                    return response()->json(['error'=>'Não foi possivel atualizar a Disciplina.'],422);
+                }
+            }
+//            return view('disciplina/discipkina_edit',['coordenador_id'=>$id]);
+        }else{
+            abort(404,'Página não encontrada');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $disciplina = Disciplina::find($id);
+                if(!empty($disciplina)){
+                    try{
+                        $disciplina->delete();
+                        return response()->json(true,200);
+                    }catch (Exception $e){
+                        return response()->json(['error'=>'Erro! Não foi possivel remover a disciplina.'],422);
+                    }
+                }else{
+                    return response()->json(['error'=>'Disciplina não encontrada.'],422);
+                }
+            }
+        }
+    }
+}
