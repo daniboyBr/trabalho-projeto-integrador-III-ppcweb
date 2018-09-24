@@ -65,27 +65,30 @@ $(document).ready(function () {
 
     $('#formCursos').on('submit',function (e) {
         e.preventDefault();
-        $.ajax({
-            method: 'POST',
-            url: '/cursos/'+$('#curso_id').val(),
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (data) {
-                alert('Curso Atualizado com sucesso');
-                window.location.href = '/cursos/'+data.curso_id;
-            },
-            error: function (data) {
-                var erros = data.responseJSON.errors;
-                alert('Campos obrigatórios não preenchidos');
-                $.each(erros, function (key, value) {
-                    $('#error-'+key).text(''+value[0]).show();
-                    $('#'+key).addClass('is-invalid');
-                    if(key == 'coordenador_id'){
-                        $('#coordenadorList').addClass('is-invalid');
-                    }
-                });
-            }
-        });
+        var corfirmacao = confirm("Realmente deseja salvar os dados? ");
+        if(corfirmacao){
+            $.ajax({
+                method: 'POST',
+                url: '/cursos/'+$('#curso_id').val(),
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    alert('Curso Atualizado com sucesso');
+                    window.location.href = '/cursos/'+data.curso_id;
+                },
+                error: function (data) {
+                    var erros = data.responseJSON.errors;
+                    alert('Campos obrigatórios não preenchidos');
+                    $.each(erros, function (key, value) {
+                        $('#error-'+key).text(''+value[0]).show();
+                        $('#'+key).addClass('is-invalid');
+                        if(key == 'coordenador_id'){
+                            $('#coordenadorList').addClass('is-invalid');
+                        }
+                    });
+                }
+            });
+        }
     });
 });
 

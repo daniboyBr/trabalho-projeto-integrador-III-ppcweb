@@ -47,7 +47,7 @@
         </div>
         <div class="dashboard bg-primary col-md-2 text-center ml-3">
             <a href="/disciplinas">
-                <i class="fas fa-book fa-5x"></i>
+                <i class="fas fa-book fa-5x"></i><br>
                 <strong>Disciplinas</strong>
             </a>
         </div>
