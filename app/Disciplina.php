@@ -14,7 +14,6 @@ class Disciplina extends Model
         'cargaHorariaDisciplina',
         'codigoDisciplina',
         'semestreDisciplina',
-        'curso_id',
     ];
 
     protected $guarded = [
@@ -22,6 +21,6 @@ class Disciplina extends Model
     ];
 
     function curso(){
-        return $this->belongsTo('App\Curso','curso_id');
+        return $this->belongsToMany('App\Curso','curso_disciplina','disciplina_id', 'curso_id');
     }
 }

@@ -71,7 +71,7 @@
         <select name="coordenador_id" id="coordenadorList" class="form-control form-control-sm col-sm-6 mr-3">
             <option value="">-- Selecione um Coordenador --</option>
         </select>
-        <a href="/coordenador/create" class="btn btn-sm btn-primary" id="novoCoordenador"><i class="fa fa-plus"></i> Novo Coordenador</a>
+        <a href="/coordenador/create" class="btn btn-sm btn-primary" id="novoCoordenador" style="display: none"><i class="fa fa-plus"></i> Novo Coordenador</a>
     </div>
     <div class="form-group row mb-0 pb-0">
         <small class="text-danger ml-5 error" id="error-coordenador_id"></small>
@@ -93,7 +93,7 @@
         </div>
     </div>
     <div class="row d-flex flex-row-reverse">
-        <a href="#" id="btnCancelar" class="btn btn-sm btn-danger ml-2">Cancelar</a>
-        <button type="submit" id="btnSalvar" class="btn btn-success btn-sm">Salvar</button>
+        <a href="#" id="btnCancelar" class="btn btn-sm btn-danger ml-2" style="display: none">Cancelar</a>
+        <button type="submit" id="btnSalvar" class="btn btn-success btn-sm" style="display: none">Salvar</button>
     </div>
 </form>

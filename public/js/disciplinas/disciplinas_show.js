@@ -10,24 +10,6 @@ $(document).ready(function () {
 
     $.ajax({
         method: 'GET',
-        url: '/cursos',
-        success: function (data) {
-            console.log(data);
-            $.each(data.data, function (chave, value) {
-                $('<option>').attr({
-                    value: data.data[chave].id,
-                }).text(data.data[chave].denominacaoCurso).appendTo($('#selectCurso'));
-            })
-        },
-        error: function (data) {
-            var error = data.responseJSON.errors;
-            alert(error);
-            window.location.herf = '/disciplinas';
-        }
-    });
-
-    $.ajax({
-        method: 'GET',
         url: '/disciplinas/'+$('#disciplina_id').val(),
         dataType: 'json',
         success: function (data) {
@@ -35,12 +17,6 @@ $(document).ready(function () {
                 $('#'+key).val(value);
                 if(key == 'id'){
                     $('#disciplina_id').val(value);
-                }else if(key == 'curso'){
-                    $('<option>').attr({
-                        selected: 'selected',
-                        disabled: 'disabled',
-                        value: value.id,
-                    }).text(value.denominacaoCurso).appendTo($('#selectCurso'));
                 }
             });
         },

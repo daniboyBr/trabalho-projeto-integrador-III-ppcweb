@@ -30,7 +30,6 @@ class DisciplinasRequest extends FormRequest
             'codigoDisciplina' => 'required|max:150',
             'semestreDisciplina'=> 'required|max:50',
             'cargaHorariaDisciplina' => 'required|integer',
-            'curso_id'=> 'required|integer',
         ];
     }
 
@@ -42,7 +41,6 @@ class DisciplinasRequest extends FormRequest
             'codigoDisciplina.required' => 'O campo Codigo da Disciplina do Curso é obrigatório',
             'semestreDisciplina.required'=> 'O campo Semestre é obrigatório.',
             'cargaHorariaDisciplina.required' => 'O campo Carga Horária é obrigatório.',
-            'curso_id.required'=> 'Campo Curso é obrigatório.',
 
             'nomeDisciplina.max' => 'Permitido até 100 caracteres',
             'descricaoDisciplina.max' => 'Permitido até 150 caracteres',
@@ -51,7 +49,6 @@ class DisciplinasRequest extends FormRequest
 
 
             'cargaHorariaDisciplina.integer'=> 'Permitido apenas números',
-            'curso_id.integer'=> 'Curso Id deve ser um número'
         ];
     }
 }

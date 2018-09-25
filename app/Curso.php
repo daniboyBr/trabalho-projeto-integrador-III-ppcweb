@@ -28,4 +28,8 @@ class Curso extends Model
     function coordenador(){
         return $this->belongsTo('App\Coordenador','coordenador_id')->withTrashed();
     }
+
+    function disciplinas(){
+        return $this->belongsToMany('App\Disciplina', 'curso_disciplina','curso_id','disciplina_id');
+    }
 }

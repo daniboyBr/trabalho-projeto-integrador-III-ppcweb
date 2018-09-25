@@ -13,25 +13,6 @@ $(document).ready(function () {
     }).appendTo($('#formDisciplinas'));
 
 
-    $.ajax({
-        method: 'GET',
-        url: '/cursos',
-        success: function (data) {
-            console.log(data);
-            $.each(data.data, function (chave, value) {
-                $('<option>').attr({
-                    value: data.data[chave].id,
-                }).text(data.data[chave].denominacaoCurso).appendTo($('#selectCurso'));
-            })
-        },
-        error: function (data) {
-            var error = data.responseJSON.errors;
-            alert(error);
-            window.location.herf = '/disciplinas';
-        }
-    });
-
-
     $('#formDisciplinas').on('submit',function (e) {
         e.preventDefault();
         var confirmacao = confirm('Realmente deseja submeter os dados?');
@@ -50,9 +31,6 @@ $(document).ready(function () {
                     $.each(erros, function (key, value) {
                         $('#error-'+key).text(''+value[0]).show();
                         $('#'+key).addClass('is-invalid');
-                        if(key == 'curso_id'){
-                            $('#selectCurso').addClass('is-invalid');
-                        }
                     })
                 }
             });

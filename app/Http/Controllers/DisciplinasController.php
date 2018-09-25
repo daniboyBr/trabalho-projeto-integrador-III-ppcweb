@@ -17,15 +17,6 @@ class DisciplinasController extends Controller
     public function index()
     {
         if(request()->ajax()){
-            if(request()->has('curso_id')){
-                $curso_id = request()->get('curso_id');
-                $disciplinas = Disciplina::where('curso_id',$curso_id)->get();
-                if(!empty($disciplinas)){
-                    return response()->json(['data'=>$disciplinas]);
-                }else{
-                    return response()->json(['message'=>'Disciplina não encontrada.'],422);
-                }
-            }
             $data = Disciplina::get();
             return response()->json(['data'=>$data]);
         }
@@ -71,7 +62,7 @@ class DisciplinasController extends Controller
         $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         if(is_int($id)){
             if(request()->ajax()){
-                $disciplinas = Disciplina::with('curso')->find($id);
+                $disciplinas = Disciplina::find($id);
                 if(!empty($disciplinas)){
                     return response()->json($disciplinas);
                 }else{

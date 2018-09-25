@@ -10,14 +10,32 @@
             <hr>
             @include('cursos.form')
             <div class="row d-flex flex-row-reverse">
-                <button onclick="remover()" class="btn btn-danger btn-sm ml-2">Remover</button>
-                <button type="button" class="btn btn-warning btn-sm" id="btnAtualizar">Atualizar</button>
+                <button onclick="remover()" class="btn btn-danger btn-sm ml-2" style="display: none" id="btnRemover">Remover</button>
+                <button type="button" class="btn btn-warning btn-sm" id="btnAtualizar" style="display: none">Atualizar</button>
             </div>
         </div>
     </div><br>
     <div class="row">
         <div class="col-md-12">
-            <h3>Disciplinas Associadas</h3>
+            <div class="row">
+                <div class="col-md-3">
+                    <h3>Disciplinas Associadas</h3>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="offset-md-3 col-md-6">
+                            <div class="form-group">
+                                <select name="disciplina_id" id="includeDisciplinas" class="form-control-sm custom-select">
+                                    <option value="">--Selecione uma Disciplina--</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" id="btnDisciplinas" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Incluir Disciplina</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <hr>
             <table id="tableDisciplinas" class="table table-sm display text-center" style="width: 100%;">
                 <thead>

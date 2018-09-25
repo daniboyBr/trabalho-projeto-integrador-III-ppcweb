@@ -21,8 +21,6 @@ class CreateDisciplinasTable extends Migration
             $table->string('codigoDisciplina', 50);
             $table->string('semestreDisciplina', 50);
             $table->integer('cargaHorariaDisciplina');
-            $table->integer('curso_id')->unsigned();
-            $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,8 +32,6 @@ class CreateDisciplinasTable extends Migration
      */
     public function down()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('disciplinas');
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

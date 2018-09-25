@@ -80,7 +80,7 @@ class CursoController extends Controller
         $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         if(is_int($id)){
             if(request()->ajax()){
-                $curso = Curso::with('coordenador')->find($id);
+                $curso = Curso::with('coordenador')->with('disciplinas')->find($id);
                 if(!empty($curso)){
                     return response()->json($curso);
                 }else{

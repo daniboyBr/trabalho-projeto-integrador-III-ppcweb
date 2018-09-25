@@ -46,8 +46,6 @@ $(document).ready(function () {
             $.each(data, function (chave, valor) {
                 if(chave == 'id') {
                     $('#disciplina_id').val(valor);
-                }if(chave == 'curso_id'){
-                    $('#selectCurso').val(valor);
                 }
                 else
                 {
@@ -87,9 +85,6 @@ $(document).ready(function () {
                 $.each(erros, function (key, value) {
                     $('#error-'+key).text(''+value[0]).show();
                     $('#'+key).addClass('is-invalid');
-                    if(key == 'curso_id'){
-                        $('#selectCurso').addClass('is-invalid');
-                    }
                 })
             }
         });

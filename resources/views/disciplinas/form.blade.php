@@ -1,15 +1,6 @@
 <form id="formDisciplinas" action="" method="POST">
     <input type="hidden" name="id" id="disciplina_id" value="{{$disciplina_id}}">
     <div class="form-group row">
-        <label for="curso_id" class="col-xs-3 col-form-label mr-0 pr-4 ml-5 pl-5">Curso:</label>
-        <div class="col-sm-9 p-0 m-0">
-            <select name="curso_id" id="selectCurso" class="custom-select form-control-sm col-md-6">
-                <option value="">-- Selecione um curso --</option>
-            </select><br>
-            <small class="text-danger error" id="error-curso_id"></small>
-        </div>
-    </div>
-    <div class="form-group row">
         <label for="nomeDisciplina" class="col-xs-3 col-form-label mr-0 pr-4">Nome da Disciplina:</label>
         <div class="col-sm-9 p-0 m-0 ml-2">
             <input type="text" class="form-control form-control-sm " id="nomeDisciplina" name="nomeDisciplina" placeholder="Nome da Disciplina" value="">

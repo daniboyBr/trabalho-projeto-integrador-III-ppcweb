@@ -1,11 +1,29 @@
 $(document).ready(function () {
     $('#formCursos :input').prop('disabled',true);
     $('#formCursos select').prop('disabled',true);
-    $('.btn').not('.btn-danger').not('.btn-warning').remove();
-    $('#btnCancelar').remove();
+    $('#btnAtualizar').show();
+    $('#btnRemover').show();
+    $('#btnDisciplinas').show();
 
     $('#btnAtualizar').on('click',function () {
         window.location.href = '/cursos/'+$('#curso_id').val()+'/edit';
+    });
+
+    $.ajax({
+        method: 'GET',
+        url: '/disciplinas',
+        dataType: 'json',
+        success: function (data) {
+            $.each(data.data, function (key, value) {
+                $('<option>').attr({
+                    value: data.data[key].id
+                }).text(data.data[key].nomeDisciplina).appendTo($('#includeDisciplinas'));
+            });
+        },
+        error: function (data) {
+            error = data.responseJSON.error;
+            alert(error);
+        }
     });
 
     $.ajax({
@@ -26,48 +44,33 @@ $(document).ready(function () {
                     });
                 }
             });
+            $('#tableDisciplinas').DataTable({
+                destroy: true,
+                language:{
+                    url:"/js/DataTables/datatable-pt-br.json"
+                },
+                searching: false,
+                info: true,
+                data: data.disciplinas,
+                columns: [
+                    { data: "codigoDisciplina" },
+                    { data: "nomeDisciplina" },
+                    { data: "descricaoDisciplina" },
+                    { data: "semestreDisciplina" },
+                    { data: "cargaHorariaDisciplina" },
+                    {
+                        mRender: function ( data, type, row ) {
+                            return '<a href="/disciplinas/'+row.id+'" class="btn btn-primary btn-sm">Visualizar</a>';
+                        }
+                    }
+                ]
+            });
         },
         error: function (data) {
             error = data.responseJSON.error;
             alert(error);
             window.location.href = '/cursos';
         }
-    });
-
-    $('#tableDisciplinas').DataTable({
-        language:{
-            url:"/js/DataTables/datatable-pt-br.json"
-        },
-        searching: false,
-        info: true,
-        ajax: {
-            url: '/disciplinas',
-            type: 'GET',
-            dataType: 'json',
-            data:{
-                curso_id: $('#curso_id').val(),
-            },
-            // dataSrc:  function(res){
-            //     cursos = res.data.length;
-            //     quantidadeDeCuros(cursos);
-            //     return res.data;
-            // },
-            error:function (data) {
-                alert(data.responseJSON.message);
-            }
-        },
-        columns: [
-            { data: "codigoDisciplina" },
-            { data: "nomeDisciplina" },
-            { data: "descricaoDisciplina" },
-            { data: "semestreDisciplina" },
-            { data: "cargaHorariaDisciplina" },
-            {
-                mRender: function ( data, type, row ) {
-                    return '<a href="/disciplinas/'+row.id+'" class="btn btn-primary btn-sm">Visualizar</a>';
-                }
-            }
-        ]
     });
 });
 
