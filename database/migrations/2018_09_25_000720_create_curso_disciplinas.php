@@ -15,7 +15,6 @@ class CreateCursoDisciplinas extends Migration
     {
         Schema::create('curso_disciplina', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id')->unsigned();
             $table->integer('curso_id')->unsigned();
             $table->foreign('curso_id')->references('id')->on('cursos');
             $table->integer('disciplina_id')->unsigned();

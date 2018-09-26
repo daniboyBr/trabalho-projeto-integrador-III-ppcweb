@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button type="submit" id="btnDisciplinas" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Incluir Disciplina</button>
+                            <button type="button" id="btnDisciplinas" class="btn btn-sm btn-primary" onclick="adicionarDisciplina();"><i class="fa fa-plus"></i> Incluir Disciplina</button>
                         </div>
                     </div>
                 </div>

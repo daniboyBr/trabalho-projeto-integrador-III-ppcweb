@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Coordenador;
 use App\Curso;
+use App\Disciplina;
 use App\Http\Requests\CursoRequest;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -167,5 +168,29 @@ class CursoController extends Controller
             }
         }
         abort(404, 'Página não encontrada');
+    }
+
+    public function addDisciplinas(Request $request){
+        if(request()->ajax()){
+            $curso_id = (int) filter_var($request->curso_id, FILTER_SANITIZE_NUMBER_INT);
+            $disciplina_id = (int) filter_var($request->disciplina_id, FILTER_SANITIZE_NUMBER_INT);
+            if(is_integer($curso_id) && is_integer($disciplina_id) && !empty($disciplina_id) && !empty($curso_id)){
+                $curso = Curso::find($curso_id);
+                $exist = $curso->disciplinas->contains($disciplina_id);
+                if(!$exist){
+                    $curso->disciplinas()->attach($disciplina_id);
+                    $curso = Curso::with('disciplinas')->find($curso_id);
+                    return response()->json($curso);
+                }
+                return response()->json(['message'=>'Disciplina já Cadastrada!'], 422);
+            }else{
+                return response()->json(['message'=>'Erro ao buscar cursos associados.'], 422);
+            }
+
+        }
+    }
+
+    public function removeDisciplinas(Request $request){
+
     }
 }

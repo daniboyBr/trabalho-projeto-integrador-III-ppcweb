@@ -20,6 +20,8 @@ Route::get('/cache', function() {
     return redirect('/');
 });
 
+Route::post('cursos/disciplinas/add', 'CursoController@addDisciplinas');
+Route::delete('cursos/disciplinas/remove', 'CursoController@removeDisciplinas');
 Route::resource('cursos', 'CursoController');
 Route::post('coordenador/restore', 'CoordenadorController@restore');
 Route::delete('coordenador/remove', 'CoordenadorController@remove');

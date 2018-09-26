@@ -9,6 +9,7 @@
             <h2>Novo Curso</h2>
             <hr>
             @include('cursos.form')
+            <br><br><br>
         </div>
     </div>
 @endsection

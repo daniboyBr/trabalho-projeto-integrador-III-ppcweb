@@ -30,6 +30,6 @@ class Curso extends Model
     }
 
     function disciplinas(){
-        return $this->belongsToMany('App\Disciplina', 'curso_disciplina','curso_id','disciplina_id');
+        return $this->belongsToMany('App\Disciplina')->withTimestamps();
     }
 }

@@ -1,5 +1,8 @@
 $(document).ready(function () {
     $('.error').hide();
+    $('#btnSalvar').show();
+    $('#btnCancelar').show();
+    $('#novoCoordenador').show();
 
     $('#btnCancelar').on('click',function () {
         window.location.href = '/cursos';

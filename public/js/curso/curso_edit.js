@@ -1,6 +1,10 @@
 $(document).ready(function () {
     var id = $('#curso_id').val();
 
+    $('#btnSalvar').show();
+    $('#btnCancelar').show();
+    $('#novoCoordenador').show();
+
     reload();
 
     $('#btnCancelar').on('click',function () {
