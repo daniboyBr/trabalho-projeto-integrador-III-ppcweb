@@ -149,8 +149,12 @@ class DisciplinasController extends Controller
         $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         if(is_int($id)){
             if(request()->ajax()){
-                $disciplina = Disciplina::find($id);
+                $disciplina = Disciplina::with('curso')->find($id);
                 if(!empty($disciplina)){
+                    if($disciplina->curso->count() > 0){
+                        return response()->json(['error'=>'Erro! Não é possuivel remover a Disciplina pois possui cursos associados a ela!'],422);
+                        die;
+                    }
                     try{
                         $disciplina->delete();
                         return response()->json(true,200);

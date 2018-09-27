@@ -153,8 +153,13 @@ class CursoController extends Controller
     {
         $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
         if(is_integer($id)){
-            $curso = Curso::find($id);
+            $curso = Curso::with('disciplinas')->find($id);
             if(!empty($curso)){
+                if(!empty($curso->disciplinas->count() > 0)){
+                    $data = ['error' => 'Não é possivel remover um curso que possuia disciplinas relacionadas remova as disciplinas primeiro!'];
+                    return response()->json($data, 404);
+                    die;
+                }
                 try{
                     $curso->delete();
                     return response()->json('true');

@@ -48,7 +48,7 @@ function remover(){
                 window.location.href = '/disciplinas';
             },
             error: function (data) {
-                var error = data.responseJSON.message;
+                var error = data.responseJSON.error;
                 alert(error);
             }
         });
