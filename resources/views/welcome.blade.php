@@ -33,22 +33,28 @@
 
 @section('conteudo')
     <div class="row d-flex justify-content-center align-middle">
-        <div class="dashboard bg-primary col-md-2 mr-3 text-center">
-            <a href="/cursos">
-                <i class="fas fa-graduation-cap fa-5x"></i><br>
-                <strong>Cursos</strong>
+        <div class="dashboard bg-primary col-md-2 text-center mr-3">
+            <a href="/coordenador">
+                <i class="fas fa-user-tie fa-5x"></i><br>
+                <strong>Coordenador</strong>
             </a>
         </div>
         <div class="dashboard bg-primary col-md-2 text-center">
-            <a href="/coordenador">
-                <i class="fas fa-chalkboard-teacher fa-5x"></i>
-                <strong>Coordenador</strong>
+            <a href="/cursos">
+                <i class="fas fa-graduation-cap fa-5x"></i><br>
+                <strong>Cursos</strong>
             </a>
         </div>
         <div class="dashboard bg-primary col-md-2 text-center ml-3">
             <a href="/disciplinas">
                 <i class="fas fa-book fa-5x"></i><br>
                 <strong>Disciplinas</strong>
+            </a>
+        </div>
+        <div class="dashboard bg-primary col-md-2 text-center ml-3">
+            <a href="/professor">
+                <i class="fas fa-chalkboard-teacher fa-5x"></i><br>
+                <strong>Professor</strong>
             </a>
         </div>
 

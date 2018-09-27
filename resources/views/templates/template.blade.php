@@ -8,10 +8,10 @@
 
         <link href="/css/app.css" rel="stylesheet">
         <link rel="stylesheet" href="/css/all.min.css">
-        <link rel="stylesheet" type="text/css" href="/js/DataTables/datatables.min.css"/>
-        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.12.1/jquery-ui.structure.min.css">jquery-ui.theme.min.css
-        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.12.1/jquery-ui.theme.min.css">
-        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.12.1/jquery-ui.min.css">
+        <link rel="stylesheet" type="text/css" href="/js/plugins/DataTables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/js/plugins/jquery-ui-1.12.1/jquery-ui.structure.min.css">
+        <link rel="stylesheet" type="text/css" href="/js/plugins/jquery-ui-1.12.1/jquery-ui.theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/js/plugins/jquery-ui-1.12.1/jquery-ui.min.css">
 
         @yield('css')
 
@@ -40,11 +40,11 @@
         <script src="/js/jquery-3.3.1.min.js"></script>
         <script src="/js/app.js"></script>
         <script src="/js/all.min.js"></script>
-        <script type="text/javascript" src="/js/DataTables/datatables.min.js"></script>
-        <script type="text/javascript" src="/js/DataTables/datatables.min.js"></script>
-        <script type="text/javascript" src="/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
-
-
+        <script type="text/javascript" src="/js/plugins/DataTables/datatables.min.js"></script>
+        <script type="text/javascript" src="/js/plugins/DataTables/datatables.min.js"></script>
+        <script type="text/javascript" src="/js/plugins/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/js/plugins/jQuery-Mask-Plugin-master/dist/jquery.mask.min.js"></script>
+        <script type="text/javascript" src="/js/comum.js"></script>
         @yield('js')
     </body>
 </html>

@@ -8,7 +8,7 @@ $(document).ready(function () {
     reload();
 
     $('#btnCancelar').on('click',function () {
-        window.history.back();
+        window.location.replace('/cursos/'+id);
     });
 
     $('<input>').attr({
