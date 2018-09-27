@@ -19,19 +19,29 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-3">
-                    <h3>Disciplinas Associadas</h3>
+                    <h3>Matriz Curricular</h3>
                 </div>
                 <div class="col-md-9">
                     <div class="row">
-                        <div class="offset-md-3 col-md-6">
+                        <div class="offset-md-1 col-md-8">
                             <div class="form-group">
-                                <select name="disciplina_id" id="includeDisciplinas" class="form-control-sm custom-select">
-                                    <option value="">--Selecione uma Disciplina--</option>
-                                </select>
+                                <input type="hidden" name="disciplina_id" style="display: none" id="disciplina_id">
+                                <input type="text" name="disciplina_id" id="search-disciplina" class="form-control form-control-sm">
+                            </div>
+                            Buscar por:&emsp;
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="search-field" value="codigoDisciplina" checked="checked">Código da Disciplina
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="search-field" value="nomeDisciplina">Nome da Disciplina
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button type="button" id="btnDisciplinas" class="btn btn-sm btn-primary" onclick="adicionarDisciplina();"><i class="fa fa-plus"></i> Incluir Disciplina</button>
+                            <button type="button" id="btnDisciplinas" class="btn btn-sm btn-primary" onclick="adicionarDisciplina();"><i class="fa fa-plus"></i> Adicionar Disciplina</button>
                         </div>
                     </div>
                 </div>
@@ -39,14 +49,15 @@
             <hr>
             <table id="tableDisciplinas" class="table table-sm display text-center" style="width: 100%;">
                 <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Disciplina</th>
-                    <th>Carga Horária</th>
-                    <th>Semestre</th>
-                    <th>Carga Horária</th>
-                    <th>Ação</th>
-                </tr>
+                    <tr>
+                        <th>Codigo</th>
+                        <th>Disciplina</th>
+                        <th>Carga Horária</th>
+                        <th>Semestre</th>
+                        <th>Carga Horária</th>
+                        <th>Ação</th>
+                        <th style="display: none"></th>
+                    </tr>
                 </thead>
                 <tbody></tbody>
             </table>

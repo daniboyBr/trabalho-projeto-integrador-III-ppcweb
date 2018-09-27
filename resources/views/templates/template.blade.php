@@ -9,6 +9,9 @@
         <link href="/css/app.css" rel="stylesheet">
         <link rel="stylesheet" href="/css/all.min.css">
         <link rel="stylesheet" type="text/css" href="/js/DataTables/datatables.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.12.1/jquery-ui.structure.min.css">jquery-ui.theme.min.css
+        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.12.1/jquery-ui.theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/js/jquery-ui-1.12.1/jquery-ui.min.css">
 
         @yield('css')
 
@@ -38,6 +41,9 @@
         <script src="/js/app.js"></script>
         <script src="/js/all.min.js"></script>
         <script type="text/javascript" src="/js/DataTables/datatables.min.js"></script>
+        <script type="text/javascript" src="/js/DataTables/datatables.min.js"></script>
+        <script type="text/javascript" src="/js/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+
 
         @yield('js')
     </body>

@@ -9,6 +9,10 @@ $(document).ready(function () {
         window.location.href = '/cursos/'+$('#curso_id').val()+'/edit';
     });
 
+    $('input[name="search-field"]').on('change',function () {
+       $('#search-disciplina').val('');
+    });
+
     $.ajax({
         method: 'GET',
         url: '/disciplinas',
@@ -53,6 +57,28 @@ $(document).ready(function () {
             window.location.href = '/cursos';
         }
     });
+
+    $('#search-disciplina').autocomplete({
+        source: function (request, responce) {
+            $.ajax({
+                method: 'GET',
+                url: '/disciplinas',
+                dataType: 'json',
+                data:{
+                    search: $('input[name="search-field"]:checked').val(),
+                    term: request.term
+                },
+                success: function (data) {
+                    responce(data);
+                },
+            });
+        },
+        min_length: 3,
+        autoFocus: true,
+        select: function(e, ui){
+            $('#disciplina_id').val(ui.item.id);
+        }
+    });
 });
 
 function remover(){
@@ -83,6 +109,7 @@ function remover(){
     }
 }
 function tableDisciplinas(data) {
+    $('#tableDisciplinas thead tr:eq(0) th:eq(-2)').attr('colspan',1);
     $('#tableDisciplinas').DataTable({
         destroy: true,
         language:{
@@ -101,16 +128,25 @@ function tableDisciplinas(data) {
                 mRender: function ( data, type, row ) {
                     return '<a href="/disciplinas/'+row.id+'" class="btn btn-primary btn-sm">Visualizar</a>';
                 }
+            },
+            {
+                mRender: function ( data, type, row ) {
+                    return '<a href="#" class="btn btn-danger btn-sm" onclick="removeDisciplina('+row.id+')">Remover</a>';
+                }
             }
         ]
     });
+    $('#tableDisciplinas').on('draw.dt',function () {
+        $('#tableDisciplinas thead tr:eq(0) th:eq(-2)').attr('colspan',2);
+    }).trigger('draw.dt');
 }
 
 function adicionarDisciplina() {
     var curso_id = $('#curso_id').val();
-    var disciplina_id = $('#includeDisciplinas').val();
+    var disciplina_id = $('#disciplina_id').val();
     var token = $('meta[name=csrf-token]').attr('content');
-    //console.log(disciplina_id);
+
+    // console.log(disciplina_id);
 
     if(curso_id == ''){
         alert('Curso não encontrado!');
@@ -130,6 +166,44 @@ function adicionarDisciplina() {
                 },
                 success: function (data) {
                     alert('Disciplina cadastrada com sucesso!');
+                    var dados = data.disciplinas;
+                    tableDisciplinas(dados);
+                },
+                error: function (data) {
+                    var error = data.responseJSON.message;
+                    alert(error);
+                }
+
+            });
+        }
+
+    }
+}
+
+function removeDisciplina(disciplina_id) {
+    var curso_id = $('#curso_id').val();
+    var token = $('meta[name=csrf-token]').attr('content');
+    //console.log(disciplina_id);
+
+    if(curso_id == ''){
+        alert('Curso não encontrado!');
+    }else if(disciplina_id == ''){
+        alert('Selecione uma Disciplina!');
+    }else{
+        var confirmacao = confirm('Deseja realmente remover a disciplina?');
+        if(confirmacao){
+            $.ajax({
+                method: 'POST',
+                url: '/cursos/disciplinas/remove',
+                dataType: 'json',
+                data:{
+                    _method: 'DELETE',
+                    _token: token,
+                    curso_id: curso_id,
+                    disciplina_id: disciplina_id,
+                },
+                success: function (data) {
+                    alert('Disciplina removida com sucesso!');
                     var dados = data.disciplinas;
                     tableDisciplinas(dados);
                 },

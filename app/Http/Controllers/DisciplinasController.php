@@ -14,9 +14,23 @@ class DisciplinasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(request()->ajax()){
+            if($request->has('search')){
+                $data = Disciplina::select(['id','nomeDisciplina','codigoDisciplina'])->where($request->search, 'LIKE', '%'.$request->term.'%')
+                ->take(10)
+                ->get();
+                $results = [];
+                foreach ($data as $key => $value){
+                    $results[] = [
+                        'id' => $value->id,
+                        'value' => $value->codigoDisciplina.' - '.$value->nomeDisciplina
+                    ];
+                }
+                return response()->json($results);
+            }
+
             $data = Disciplina::get();
             return response()->json(['data'=>$data]);
         }
