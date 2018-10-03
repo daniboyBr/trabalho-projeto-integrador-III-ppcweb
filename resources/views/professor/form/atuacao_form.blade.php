@@ -352,7 +352,188 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="v-pills-publicacoes" role="tabpanel" aria-labelledby="v-pills-messages-tab">teste</div>
+            <div class="tab-pane fade" id="v-pills-publicacoes" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Artigos publicados em periódicos cientificos</legend>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="artigosNaArea" name="artigosNaArea" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="artigosNaArea">na área(qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-artigosNaArea"></small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="artigosOutrasAreas" name="artigosOutrasAreas" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="artigosOutrasAreas">em outras áreas (qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-artigosOutrasAreas"></small>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Livros ou Capítulos</legend>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="livrosNaArea" name="livrosNaArea" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="artigosNaArea">livros publicados na área (qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-livrosNaArea"></small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="livrosOutrasAreas" name="livrosOutrasAreas" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="livrosOutrasAreas">livros publicados em outras áreas (qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-livrosOutrasAreas"></small>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Trabalhos publicados em anais</legend>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="trabalhosEmAnaisCompletos" name="trabalhosEmAnaisCompletos" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="trabalhosEmAnaisCompletos">completos (qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-trabalhosEmAnaisCompletos"></small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="trabalhosEmAnaisResumo" name="trabalhosEmAnaisResumo" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="trabalhosEmAnaisResumo">resumos (qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-trabalhosEmAnaisResumo"></small>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Propriedade Intelectual</legend>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="propriedadeIntelectualDepositada" name="propriedadeIntelectualDepositada" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="propriedadeIntelectualDepositada">depositada (qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-propriedadeIntelectualDepositada"></small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <input type="text" id="propriedadeIntelectualRegistrada" name="propriedadeIntelectualRegistrada" class="form-control form-control-sm">
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="propriedadeIntelectualRegistrada">resumos (qtde)</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <small class="text-danger " id="error-propriedadeIntelectualRegistrada"></small>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <fieldset class="scheduler-border">
+                            <legend class="scheduler-border">Outras publicações</legend>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input type="text" id="traducoes" name="traducoes" class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <label for="traducoes">Traduções de livros,capítulos, ou artigos publicados (qtde)</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <small class="text-danger " id="error-traducoes"></small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input type="text" id="projetosArtiticosCulturais" name="projetosArtiticosCulturais" class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <label for="projetosArtiticosCulturais">Projetos e/ou produções artísticas e culturais (qtde)</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <small class="text-danger " id="error-projetosArtiticosCulturais"></small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <input type="text" id="producaoDidaticoPedagogica" name="producaoDidaticoPedagogica" class="form-control form-control-sm">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <label for="producaoDidaticoPedagogica">Produção didatico-pedagógica relevante publicada ou não (qtde)</label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <small class="text-danger " id="error-producaoDidaticoPedagogica"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Anexar Comprovantes</label>
+                    </div>
+                    <div class="col-md-1 justify-content-center align-self-center">
+                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus "></i></button>
+                        <br>
+                        <button type="button" class="btn btn-danger btn-sm mt-1"><i class="fa fa-minus "></i></button>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table display" id="tblAnexoComprovante" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Comprovante</th>
+                                    <th>Data</th>
+                                    <th>Local Publicação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
