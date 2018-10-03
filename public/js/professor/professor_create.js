@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('.error').hide();
+    $('.tempoTotal').attr('disabled','disabled');
 
     $('#tblDisciplinaCurso').DataTable( {
         searching: false,

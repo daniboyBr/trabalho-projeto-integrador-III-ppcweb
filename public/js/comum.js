@@ -3,6 +3,8 @@ $(document).ready(function () {
     var objDP = $(".datepicker");
     objDP.datepicker({
         maxDate: 0,
+        changeYear:true,
+        yearRange: "1900:*",
         dateFormat: 'dd/mm/yy',
         dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
         dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],

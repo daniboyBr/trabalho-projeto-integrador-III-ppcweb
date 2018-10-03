@@ -257,7 +257,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="tempoTotalVinculo">Tempo Total</label>
-                                            <input type="text" id="tempoTotalVinculo" name="tempoTotalVinculo" class="form-control form-control-sm">
+                                            <input type="text" id="tempoTotalVinculo" name="tempoTotalVinculo" class="form-control form-control-sm tempoTotal">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -275,7 +275,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="tempoTotalTempoCursoEAD">Tempo Total</label>
-                                            <input type="text" id="tempoTotalTempoCursoEAD" name="tempoTotalTempoCursoEAD" class="form-control form-control-sm">
+                                            <input type="text" id="tempoTotalTempoCursoEAD" name="tempoTotalTempoCursoEAD" class="form-control form-control-sm tempoTotal">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -295,7 +295,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="tempoTotalMagisteriaSuperior">Tempo Total</label>
-                                            <input type="text" id="tempoTotalMagisteriaSuperior" name="tempoTotalMagisteriaSuperior" class="form-control form-control-sm">
+                                            <input type="text" id="tempoTotalMagisteriaSuperior" name="tempoTotalMagisteriaSuperior" class="form-control form-control-sm tempoTotal">
                                         </div>
                                     </div>
                                 </fieldset>
@@ -313,7 +313,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="tempoTotalExpProfissional">Tempo Total</label>
-                                            <input type="text" id="tempoTotalExpProfissional" name="tempoTotalExpProfissional" class="form-control form-control-sm">
+                                            <input type="text" id="tempoTotalExpProfissional" name="tempoTotalExpProfissional" class="form-control form-control-sm tempoTotal">
                                         </div>
                                     </div>
                                 </fieldset>
