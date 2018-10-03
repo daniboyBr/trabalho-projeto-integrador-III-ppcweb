@@ -3,9 +3,6 @@ $(document).ready(function () {
 
     cursoSolicitacao();
 
-    reload();
-
-
     $('#btnCancelar').on('click',function () {
         window.location.href = '/coordenador';
     });
@@ -60,13 +57,5 @@ function cursoSolicitacao() {
             name: 'curso_url',
             value: url
         }).appendTo($('#formCoordenador'));
-    }
-}
-
-
-function reload() {
-    var url = document.referrer;
-    if(url.indexOf('coordenador') != -1){
-        window.location.reload();
     }
 }

@@ -33,7 +33,7 @@
                 {{--</li>--}}
             </ul>
         </nav>
-        <div class="container">
+        <div class="container-fluid">
             @yield('conteudo')
         </div>
 
