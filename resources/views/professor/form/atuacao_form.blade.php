@@ -42,46 +42,46 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" name="orientacaoTCC" id="orientacaoTCC" class="form-control form-control-sm">
+                                    <input type="text" name="horasOrientacaoTCC" id="horasOrientacaoTCC" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10 pt-1">
                                     <label>Orientação de TCC</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger error" id="error-orientacaoTCC"></small>
+                                    <small class="text-danger error" id="error-horasOrientacaoTCC"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" name="coordenacaoCurso" id="coordenacaoCurso" class="form-control form-control-sm">
+                                    <input type="text" name="horasCoordenacaoCurso" id="horasCoordenacaoCurso" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10 pt-1">
                                     <label>Coordenação de Curso</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger error" id="error-coordenacaoCurso"></small>
+                                    <small class="text-danger error" id="error-horasCoordenacaoCurso"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" name="coordenacaoOutrosCursos" id="coordenacaoOutrosCursos" class="form-control form-control-sm">
+                                    <input type="text" name="horasCoordenacaoOutrosCursos" id="horasCoordenacaoOutrosCursos" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10 pt-1">
                                     <label>Coordenação Outros Cursos</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger error" id="error-coordenacaoOutrosCursos"></small>
+                                    <small class="text-danger error" id="error-horasCoordenacaoOutrosCursos"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" name="pesquisaSemAtual" id="pesquisaSemAtual" class="form-control form-control-sm">
+                                    <input type="text" name="horasPesquisaSmAtual" id="horasPesquisaSmAtual" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10 pt-1">
                                     <label>Pesquisa (semestre atual)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger error" id="error-pesquisaSemAtual"></small>
+                                    <small class="text-danger error" id="error-horasPesquisaSmAtual"></small>
                                 </div>
                             </div>
                         </div>
@@ -89,24 +89,24 @@
                         <div class="col-md-5">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" name="atividadeExtraClasse" id="atividadeExtraClasse" class="form-control form-control-sm">
+                                    <input type="text" name="horasAtividadeExtraClasse" id="horasAtividadeExtraClasse" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10 pt-1">
                                     <label>Ativade Extra Classe no Curso</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger error" id="error-atividadeExtraClasse"></small>
+                                    <small class="text-danger error" id="error-horasAtividadeExtraClasse"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" name="atividadeExtraClasseOutrosCursos" id="atividadeExtraClasseOutrosCursos" class="form-control form-control-sm">
+                                    <input type="text" name="horasAtividadeExtClasseOutrosCursos" id="horasAtividadeExtClasseOutrosCursos" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10 pt-1">
                                     <label>Atividade Extra Classe Outros Curso</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger error" id="error-atividadeExtraClasseOutrosCursos"></small>
+                                    <small class="text-danger error" id="error-horasAtividadeExtClasseOutrosCursos"></small>
                                 </div>
                             </div>
                             <div class="row">
@@ -125,7 +125,7 @@
                                     <input type="text" name="qtdHorasOutrosCurso" id="qtdHorasOutrosCurso" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10 pt-1">
-                                    <label>Qtd de Horas Curso</label>
+                                    <label>Qtd de Horas Outros Curso</label>
                                 </div>
                                 <div class="col-md-12">
                                     <small class="text-danger error" id="error-qtdHorasOutrosCurso"></small>
@@ -326,7 +326,7 @@
                                     <legend class="scheduler-border">Participação em Eventos</legend>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <input type="text" id="number" name="number" class="form-control form-control-sm">
+                                            <input type="text" id="qtdParicipacaoEventos" name="qtdParicipacaoEventos" class="form-control form-control-sm">
                                         </div>
                                         <div class="col-md-10">
                                             <label for="number">Quantidade</label>
@@ -359,24 +359,24 @@
                             <legend class="scheduler-border">Artigos publicados em periódicos cientificos</legend>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="artigosNaArea" name="artigosNaArea" class="form-control form-control-sm">
+                                    <input type="text" id="qtdArtigosNaArea" name="qtdArtigosNaArea" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="artigosNaArea">na área(qtde)</label>
+                                    <label for="qtdArtigosNaArea">na área(qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-artigosNaArea"></small>
+                                    <small class="text-danger " id="error-qtdArtigosNaArea"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="artigosOutrasAreas" name="artigosOutrasAreas" class="form-control form-control-sm">
+                                    <input type="text" id="qtdArtigosOutrasAreas" name="qtdArtigosOutrasAreas" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="artigosOutrasAreas">em outras áreas (qtde)</label>
+                                    <label for="qtdArtigosOutrasAreas">em outras áreas (qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-artigosOutrasAreas"></small>
+                                    <small class="text-danger " id="error-qtdArtigosOutrasAreas"></small>
                                 </div>
                             </div>
                         </fieldset>
@@ -386,24 +386,24 @@
                             <legend class="scheduler-border">Livros ou Capítulos</legend>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="livrosNaArea" name="livrosNaArea" class="form-control form-control-sm">
+                                    <input type="text" id="qtdLivrosNaArea" name="qtdLivrosNaArea" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="artigosNaArea">livros publicados na área (qtde)</label>
+                                    <label for="qtdLivrosNaArea">livros publicados na área (qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-livrosNaArea"></small>
+                                    <small class="text-danger " id="error-qtdLivrosNaArea"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="livrosOutrasAreas" name="livrosOutrasAreas" class="form-control form-control-sm">
+                                    <input type="text" id="qtdLivrosOutrasAreas" name="qtdLivrosOutrasAreas" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="livrosOutrasAreas">livros publicados em outras áreas (qtde)</label>
+                                    <label for="qtdLivrosOutrasAreas">livros publicados em outras áreas (qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-livrosOutrasAreas"></small>
+                                    <small class="text-danger " id="error-qtdLivrosOutrasAreas"></small>
                                 </div>
                             </div>
                         </fieldset>
@@ -415,24 +415,24 @@
                             <legend class="scheduler-border">Trabalhos publicados em anais</legend>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="trabalhosEmAnaisCompletos" name="trabalhosEmAnaisCompletos" class="form-control form-control-sm">
+                                    <input type="text" id="qtdTrabalhosEmAnaisCompletos" name="qtdTrabalhosEmAnaisCompletos" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="trabalhosEmAnaisCompletos">completos (qtde)</label>
+                                    <label for="qtdTrabalhosEmAnaisCompletos">completos (qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-trabalhosEmAnaisCompletos"></small>
+                                    <small class="text-danger " id="error-qtdTrabalhosEmAnaisCompletos"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="trabalhosEmAnaisResumo" name="trabalhosEmAnaisResumo" class="form-control form-control-sm">
+                                    <input type="text" id="qtdTrabalhosEmAnaisResumo" name="qtdTrabalhosEmAnaisResumo" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="trabalhosEmAnaisResumo">resumos (qtde)</label>
+                                    <label for="qtdTrabalhosEmAnaisResumo">resumos (qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-trabalhosEmAnaisResumo"></small>
+                                    <small class="text-danger " id="error-qtdTrabalhosEmAnaisResumo"></small>
                                 </div>
                             </div>
                         </fieldset>
@@ -442,24 +442,24 @@
                             <legend class="scheduler-border">Propriedade Intelectual</legend>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="propriedadeIntelectualDepositada" name="propriedadeIntelectualDepositada" class="form-control form-control-sm">
+                                    <input type="text" id="qtdPropriedadeIntelectualDepositada" name="qtdPropriedadeIntelectualDepositada" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="propriedadeIntelectualDepositada">depositada (qtde)</label>
+                                    <label for="qtdPropriedadeIntelectualDepositada">depositada (qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-propriedadeIntelectualDepositada"></small>
+                                    <small class="text-danger " id="error-qtdPropriedadeIntelectualDepositada"></small>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <input type="text" id="propriedadeIntelectualRegistrada" name="propriedadeIntelectualRegistrada" class="form-control form-control-sm">
+                                    <input type="text" id="qtdPropriedadeIntelectualRegistrada" name="qtdPropriedadeIntelectualRegistrada" class="form-control form-control-sm">
                                 </div>
                                 <div class="col-md-10">
-                                    <label for="propriedadeIntelectualRegistrada">resumos (qtde)</label>
+                                    <label for="qtdPropriedadeIntelectualRegistrada">resumos (qtde)</label>
                                 </div>
                                 <div class="col-md-12">
-                                    <small class="text-danger " id="error-propriedadeIntelectualRegistrada"></small>
+                                    <small class="text-danger " id="error-qtdPropriedadeIntelectualRegistrada"></small>
                                 </div>
                             </div>
                         </fieldset>
@@ -473,35 +473,35 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <input type="text" id="traducoes" name="traducoes" class="form-control form-control-sm">
+                                            <input type="text" id="qtdTraducoes" name="qtdTraducoes" class="form-control form-control-sm">
                                         </div>
                                         <div class="col-md-10">
-                                            <label for="traducoes">Traduções de livros,capítulos, ou artigos publicados (qtde)</label>
+                                            <label for="qtdTraducoes">Traduções de livros,capítulos, ou artigos publicados (qtde)</label>
                                         </div>
                                         <div class="col-md-12">
-                                            <small class="text-danger " id="error-traducoes"></small>
+                                            <small class="text-danger " id="error-qtdTraducoes"></small>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <input type="text" id="projetosArtiticosCulturais" name="projetosArtiticosCulturais" class="form-control form-control-sm">
+                                            <input type="text" id="qtdProjetosArtiticosCulturais" name="qtdProjetosArtiticosCulturais" class="form-control form-control-sm">
                                         </div>
                                         <div class="col-md-10">
-                                            <label for="projetosArtiticosCulturais">Projetos e/ou produções artísticas e culturais (qtde)</label>
+                                            <label for="qtdProjetosArtiticosCulturais">Projetos e/ou produções artísticas e culturais (qtde)</label>
                                         </div>
                                         <div class="col-md-12">
-                                            <small class="text-danger " id="error-projetosArtiticosCulturais"></small>
+                                            <small class="text-danger " id="error-qtdProjetosArtiticosCulturais"></small>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <input type="text" id="producaoDidaticoPedagogica" name="producaoDidaticoPedagogica" class="form-control form-control-sm">
+                                            <input type="text" id="qtdProducaoDidaticoPedagogica" name="qtdProducaoDidaticoPedagogica" class="form-control form-control-sm">
                                         </div>
                                         <div class="col-md-10">
-                                            <label for="producaoDidaticoPedagogica">Produção didatico-pedagógica relevante publicada ou não (qtde)</label>
+                                            <label for="qtdProducaoDidaticoPedagogica">Produção didatico-pedagógica relevante publicada ou não (qtde)</label>
                                         </div>
                                         <div class="col-md-12">
-                                            <small class="text-danger " id="error-producaoDidaticoPedagogica"></small>
+                                            <small class="text-danger " id="error-qtdProducaoDidaticoPedagogica"></small>
                                         </div>
                                     </div>
                                 </div>

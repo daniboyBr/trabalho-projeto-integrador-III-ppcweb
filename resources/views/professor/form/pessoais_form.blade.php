@@ -1,6 +1,6 @@
 <div class="row">
     <div class="offset-1 col-md-11">
-        <input type="hidden" name="id" id="disciplina_id" value="{{$professor_id}}">
+        <input type="hidden" name="id" id="$professor_id" value="{{$professor_id}}">
         <div class="form-group row">
             <label for="nomeProfessor" class="col-xs-3 col-form-label mr-0 pr-2">Nome:</label>
             <div class="col-sm-7 p-0 m-0 ml-2">
