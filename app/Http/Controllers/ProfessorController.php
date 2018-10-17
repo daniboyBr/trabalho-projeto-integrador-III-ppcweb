@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ProfessorRequest;
 
 class ProfessorController extends Controller
 {
@@ -32,9 +33,11 @@ class ProfessorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProfessorRequest $request)
     {
-        //
+        echo '<pre>';
+        var_dump($request->all());
+        var_dump($file = $request->hasFile('anexos'));
     }
 
     /**

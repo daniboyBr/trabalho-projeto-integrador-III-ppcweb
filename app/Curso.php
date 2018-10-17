@@ -25,11 +25,11 @@ class Curso extends Model
         'id'
     ];
 
-    function coordenador(){
+    public function coordenador(){
         return $this->belongsTo('App\Coordenador','coordenador_id')->withTrashed();
     }
 
-    function disciplinas(){
+    public function disciplinas(){
         return $this->belongsToMany('App\Disciplina')->withTimestamps();
     }
 }

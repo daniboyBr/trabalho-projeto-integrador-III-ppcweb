@@ -137,77 +137,59 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p class="text-center">Disciplinas Ministradas no curso</p>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input type="text" id="DisciplinasMinistradas" class="form-control form-control-sm" placeholder="Disciplina">
+                            </div>
+                            <div class="col-md-5">
+                                <input type="text" id="cargaHorariaDisciMinistrada" class="form-control form-control-sm" placeholder="Carga Horária">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="addDisciplinaMinistrada">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
                         <table id="tblDisciplinaCurso" class="table display" style="width: 100% !important;">
                             <thead>
                                 <tr>
                                     <th>Disciplina</th>
                                     <th>Carga Horária</th>
+                                    <th>-</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="text" name="disciplinaCurso" id="disciplinaCurso"></td>
-                                    <td><input type="text" name="cargaOrariaDiscilinaCurso" id="cargaOrariaDiscilinaCurso"></td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-md-6">
                         <p class="text-center">Disciplinas Ministradas em outro Curso</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input type="text" id="cursoDiscOutroCurso" class="form-control form-control-sm" placeholder="Curso">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="DisciplnaOutroCurso" class="form-control form-control-sm" placeholder="Disciplina">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="text" id="cargaHorariaDiscOutroCurso" class="form-control form-control-sm" placeholder="Carga Horária" data-toggle="tooltip" title="Carga Horária" />
+                            </div>
+                            <div  class="col-md-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="addDiscMinistradasOutrosCursos">
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
                         <table id="tblDisciplinaOutroCurso" class="table display" style="width: 100% !important;">
                             <thead>
-                            <tr>
-                                <th>Curso</th>
-                                <th>Disciplina</th>
-                                <th>Carga Hoŕaria</th>
-                            </tr>
+                                <tr>
+                                    <th>Curso</th>
+                                    <th>Disciplina</th>
+                                    <th>Carga Hoŕaria</th>
+                                    <th>-</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>System Architect</td>
-                                </tr>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>System Architect</td>
-                                </tr>
 
                             </tbody>
                         </table>
@@ -514,17 +496,17 @@
                         <label>Anexar Comprovantes</label>
                     </div>
                     <div class="col-md-1 justify-content-center align-self-center">
-                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-plus "></i></button>
-                        <br>
-                        <button type="button" class="btn btn-danger btn-sm mt-1"><i class="fa fa-minus "></i></button>
+                        <button type="button" class="btn btn-primary btn-sm" id="addComprovante" data-toggle="modal" data-target="#modalComprovantePublicacao"><i class="fa fa-plus "></i></button>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-11">
                         <table class="table display" id="tblAnexoComprovante" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Comprovante</th>
                                     <th>Data</th>
                                     <th>Local Publicação</th>
+                                    <th>Arquivo</th>
+                                    <th>-</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -533,6 +515,28 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalComprovantePublicacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Comprovante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="anexos">
+                <input type="text" id="comprovantePublicacao" class="form-control form-control-sm" placeholder="Comprovante">
+                <input type="text" id="dataComprovantePublicacao" class="form-control form-control-sm datepicker-modal" placeholder="Data">
+                <input type="text" id="localComprovantePublicacao" class="form-control form-control-sm" placeholder="Local">
+                <input type="file" id="anexoPublicacao" class="form-control form-control-sm" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm" id="adicionarComprovante" data-dismiss="modal">Adicionar</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
     </div>
