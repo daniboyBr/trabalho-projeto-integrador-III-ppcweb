@@ -18,7 +18,7 @@ class CreateDisciplinasMinistradas extends Migration
             $table->string('disciplina',100)->nullable(false);
             $table->integer('cargaHoraria')->nullable(false);
             $table->integer('professor_id')->unsigned();
-            $table->foreign('professor_id')->references('id')->on('professors');
+            $table->foreign('professor_id')->references('id')->on('professors')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,9 @@ class CreateDisciplinasMinistradas extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('disciplinas_ministradas_curso');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
     }
 }

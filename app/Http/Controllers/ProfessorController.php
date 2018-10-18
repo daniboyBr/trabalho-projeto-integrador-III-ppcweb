@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\AnexosComprovantes;
+use App\DisciplinasMinistradas;
+use App\DisciplinasMinistradasOutrosCursos;
+use App\Professor;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfessorRequest;
+use Illuminate\Support\Facades\Storage;
 
 class ProfessorController extends Controller
 {
@@ -14,7 +19,9 @@ class ProfessorController extends Controller
      */
     public function index()
     {
-        return view('professor/professor_home');
+        $professor = Professor::with(['anexoComprovantes','disciplinasMinistradasOutrosCursos','disciplinasMinistradas'])->get();
+        return response()->json($professor);
+//        return view('professor/professor_home');
     }
 
     /**
@@ -35,9 +42,79 @@ class ProfessorController extends Controller
      */
     public function store(ProfessorRequest $request)
     {
+        $request->validated();
         echo '<pre>';
-        var_dump($request->all());
-        var_dump($file = $request->hasFile('anexos'));
+        $form  = $request->all();
+        array_walk_recursive($form, function (&$value, $key){
+            $datas = [
+                'dataAtualizacaoCurriculo',
+                'dataAdmissao',
+                'tempoVinculo',
+                'tempoExpMagisterioSuperior',
+                'tempoCursosEAD',
+                'tempoExpProfissional',
+                'data'
+            ];
+            if($key ==  'cpfProfessor'){
+                $value = str_replace(['.','-'],['',''],$value);
+            }elseif (in_array($key, $datas)){
+                $value =  date('Y-m-d', strtotime(str_replace('-', '/', $value)));
+            }
+        });
+        $professor = Professor::where('cpfProfessor',$form['cpfProfessor'])->get();
+        if(count($professor) == 0){
+            $professor =  Professor::create($form);
+            if($request->has('comprovateEventos')){
+                foreach ($form['comprovateEventos'] as $key => $value){
+                    $anexo =  new AnexosComprovantes();
+                    $anexo->comprovante = $value['comprovante'];
+                    $anexo->data = $value['data'];
+                    $anexo->local = $value['local'];
+                    $anexo->arquivo =  uniqid($professor->cpfProfessor.'_Evento_'.$value['data']);
+                    $anexo->professor_id = $professor->id;
+                    $anexo->tipoComprovante = 1;
+                    Storage::putFileAs('comprovantes', $value['anexo'], $anexo->arquivo.$value['anexo']->extension());
+                    $professor->anexoComprovantes()->save($anexo);
+                }
+            }
+            if($request->has('comprovatePublicacao')){
+                foreach ($form['comprovatePublicacao'] as $key => $value){
+                    $anexo =  new AnexosComprovantes();
+                    $anexo->comprovante = $value['comprovante'];
+                    $anexo->data = $value['data'];
+                    $anexo->local = $value['local'];
+                    $anexo->arquivo =  uniqid($professor->cpfProfessor.'_Publicacao_'.$value['data']);
+                    $anexo->professor_id = $professor->id;
+                    $anexo->tipoComprovante = 2;
+                    Storage::putFileAs('comprovantes', $value['anexo'], $anexo->arquivo.$value['anexo']->extension());
+                    $professor->anexoComprovantes()->save($anexo);
+                }
+            }
+            if($request->has('DisciplinasMinistradas')){
+                foreach ($form['DisciplinasMinistradas'] as $key => $value){
+                    $disciplina =  new DisciplinasMinistradas();
+                    $disciplina->disciplina = $value['disciplina'];
+                    $disciplina->cargaHoraria = $value['cargaHoraria'];
+                    $disciplina->professor_id = $professor->id;
+                    $professor->disciplinasMinistradas()->save($disciplina);
+                }
+            }
+            if($request->has('DisciplinasMinistradasOutrosCursos')){
+                foreach ($form['DisciplinasMinistradasOutrosCursos'] as $key => $value){
+                    $disciplina =  new DisciplinasMinistradasOutrosCursos();
+                    $disciplina->curso = $value['curso'];
+                    $disciplina->disciplina = $value['disciplina'];
+                    $disciplina->cargaHoraria = $value['cargaHoraria'];
+                    $disciplina->professor_id = $professor->id;
+                    $professor->disciplinasMinistradasOutrosCursos()->save($disciplina);
+                }
+            }
+            var_dump($professor);die;
+        }else{
+            return response()->json(['message'=>'Professor já existe na base de dados'],422);
+        }
+        //$profesor =  Professor::create($form);
+
     }
 
     /**

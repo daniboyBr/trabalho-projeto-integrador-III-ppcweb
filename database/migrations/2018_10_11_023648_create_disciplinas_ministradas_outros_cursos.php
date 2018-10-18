@@ -15,11 +15,11 @@ class CreateDisciplinasMinistradasOutrosCursos extends Migration
     {
         Schema::create('disciplinas_ministradas_outros_cursos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('curso')->nullable(false);
+            $table->string('curso',100)->nullable(false);
             $table->string('disciplina',100)->nullable(false);
             $table->integer('cargaHoraria')->nullable(false);
             $table->integer('professor_id')->unsigned();
-            $table->foreign('professor_id')->references('id')->on('professors');
+            $table->foreign('professor_id')->references('id')->on('professors')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +31,9 @@ class CreateDisciplinasMinistradasOutrosCursos extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('disciplinas_ministradas_outros_cursos');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
     }
 }

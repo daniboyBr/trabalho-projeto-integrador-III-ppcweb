@@ -16,7 +16,7 @@ class CreateProfessorsTable extends Migration
         Schema::create('professors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nomeProfessor',100)->nullable(false);
-            $table->string('cpfProfessor',11)->nullable(false);
+            $table->string('cpfProfessor',11)->nullable(false)->unique();
             $table->string('maiorTitulacao',100)->nullable(false);
             $table->string('areaFormacao',100)->nullable(false);
             $table->string('curriculoLates',100)->nullable(false);
@@ -39,6 +39,7 @@ class CreateProfessorsTable extends Migration
             $table->date('tempoCursosEAD')->nullable(false);
             $table->date('tempoExpMagisterioSuperior')->nullable(false);
             $table->date('tempoExpProfissional')->nullable(false);
+            $table->integer('qtdTraducoes')->nullable(false)->default('0');
             $table->integer('qtdParicipacaoEventos')->nullable(false)->default('0');
             $table->integer('qtdArtigosNaArea')->nullable(false)->default('0');
             $table->integer('qtdArtigosOutrasAreas')->nullable(false)->default('0');
@@ -61,6 +62,8 @@ class CreateProfessorsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Schema::dropIfExists('professors');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

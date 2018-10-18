@@ -42,6 +42,7 @@ class Professor extends Model
         'qtdTrabalhosEmAnaisResumo',
         'qtdPropriedadeIntelectualDepositada',
         'qtdPropriedadeIntelectualRegistrada',
+        'qtdTraducoes',
         'qtdProjetosArtiticosCulturais',
         'qtdProducaoDidaticoPedagogica'
     ];
@@ -58,6 +59,6 @@ class Professor extends Model
         return $this->hasMany('App\DisciplinasMinistradasOutrosCursos','professor_id','id');
     }
     public function anexoComprovantes(){
-        return $this->hasMany('App\AnexoComprovantes','professor_id','id');
+        return $this->hasMany('App\AnexosComprovantes','professor_id','id');
     }
 }

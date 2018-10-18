@@ -15,14 +15,15 @@
                         <input type="text" id="matriculaProfessor" name="matriculaProfessor" class="form-control form-control-sm">
                         <small class="text-danger error" id="error-matriculaProfessor"></small>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <label for="dataAdmissao">Data da Admissão</label>
                         <div class="input-group input-group-sm">
-                            <input type="text" id="dataAdmissao" name="dataAdmissao" class="form-control form-control-sm datepicker">
+                            <input type="text" id="dataAdmissao" name="dataAdmissao" class="form-control form-control-sm datepicker ">
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
+                        <small class="text-danger error" id="error-dataAdmissao"></small>
                     </div>
                 </div><hr>
                 <p class="text-center">Informe a quantidade de horas das atividades</p>
@@ -198,25 +199,34 @@
             </div>
             <div class="tab-pane fade" id="v-pills-atuacaoProf" role="tabpanel" aria-labelledby="v-pills-atuacaoProf-tab">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="1" id="membroNDE">
+                            <input class="form-check-input" type="checkbox" value="1" id="membroNDE" name="membroNDE">
                             <label class="form-check-label" for="membroNDE">
                                 Membro NDE?
-                            </label>
+                            </label><br>
                         </div>
-                        <div class="ml-5 form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" value="1" id="membroColegiado">
+                        <br>
+                        <small class="text-danger error" id="error-membroNDE"></small>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" value="1" id="membroColegiado" name="membroColegiado">
                             <label class="form-check-label" for="membroColegiado">
                                 Membro Colegiado?
                             </label>
                         </div>
+                        <br>
+                        <small class="text-danger error" id="error-membroColegiado"></small>
+                    </div>
+                    <div class="col-md-12">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="1" id="docenteFCEP">
-                            <label class="form-check-label" for="docenteFCEP">
+                            <input class="form-check-input" type="checkbox" value="1" id="docenteFCEP" name="docenteFCEP">
+                            <label class="form-check-label ml-2" for="docenteFCEP">
                                 Docente com formação/capacitação/expência pedagógica?
                             </label>
                         </div>
+                        <small class="text-danger error" id="error-docenteFCEP"></small>
                     </div>
                 </div>
                 <hr>
@@ -241,6 +251,9 @@
                                             <label for="tempoTotalVinculo">Tempo Total</label>
                                             <input type="text" id="tempoTotalVinculo" name="tempoTotalVinculo" class="form-control form-control-sm tempoTotal">
                                         </div>
+                                        <div class="col-md-12">
+                                            <small class="text-danger " id="error-tempoVinculo"></small>
+                                        </div>
                                     </div>
                                 </fieldset>
                                 <fieldset class="scheduler-border">
@@ -258,6 +271,9 @@
                                         <div class="col-md-6">
                                             <label for="tempoTotalTempoCursoEAD">Tempo Total</label>
                                             <input type="text" id="tempoTotalTempoCursoEAD" name="tempoTotalTempoCursoEAD" class="form-control form-control-sm tempoTotal">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <small class="text-danger " id="error-tempoCursosEAD"></small>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -279,6 +295,9 @@
                                             <label for="tempoTotalMagisteriaSuperior">Tempo Total</label>
                                             <input type="text" id="tempoTotalMagisteriaSuperior" name="tempoTotalMagisteriaSuperior" class="form-control form-control-sm tempoTotal">
                                         </div>
+                                        <div class="col-md-12">
+                                            <small class="text-danger " id="error-tempoExpMagisterioSuperior"></small>
+                                        </div>
                                     </div>
                                 </fieldset>
                                 <fieldset class="scheduler-border">
@@ -297,20 +316,23 @@
                                             <label for="tempoTotalExpProfissional">Tempo Total</label>
                                             <input type="text" id="tempoTotalExpProfissional" name="tempoTotalExpProfissional" class="form-control form-control-sm tempoTotal">
                                         </div>
+                                        <div class="col-md-12">
+                                            <small class="text-danger " id="error-tempoExpProfissional"></small>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <fieldset class="scheduler-border">
                                     <legend class="scheduler-border">Participação em Eventos</legend>
                                     <div class="row">
                                         <div class="col-md-2">
                                             <input type="text" id="qtdParicipacaoEventos" name="qtdParicipacaoEventos" class="form-control form-control-sm">
                                         </div>
-                                        <div class="col-md-10">
+                                        <div class="col-md-5">
                                             <label for="number">Quantidade</label>
                                         </div>
                                     </div>
@@ -319,16 +341,24 @@
                                             <label for="number">Anexar Comporvantes</label>
                                         </div>
                                         <div class="col-md-10">
-                                            <select class="custom-select" id="basic" multiple="multiple">
-
-                                            </select>
+                                            <table id="tblAnexoEventos" class="display table" style="width: 100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>comprovante</th>
+                                                        <th>-</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i></button>
-                                            <button type="button" class="btn btn-sm btn-danger mt-2"><i class="fa fa-minus"></i></button>
+                                            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalComprovanteEventos" id="addComprovateEventos"><i class="fa fa-plus"></i></a>
                                         </div>
                                     </div>
                                 </fieldset>
+                            </div>
+                            <div class="col-md-">
+
                             </div>
                         </div>
                     </div>
@@ -452,9 +482,9 @@
                         <fieldset class="scheduler-border">
                             <legend class="scheduler-border">Outras publicações</legend>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <input type="text" id="qtdTraducoes" name="qtdTraducoes" class="form-control form-control-sm">
                                         </div>
                                         <div class="col-md-10">
@@ -465,7 +495,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <input type="text" id="qtdProjetosArtiticosCulturais" name="qtdProjetosArtiticosCulturais" class="form-control form-control-sm">
                                         </div>
                                         <div class="col-md-10">
@@ -476,7 +506,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-2">
+                                        <div class="col-md-1">
                                             <input type="text" id="qtdProducaoDidaticoPedagogica" name="qtdProducaoDidaticoPedagogica" class="form-control form-control-sm">
                                         </div>
                                         <div class="col-md-10">
@@ -536,6 +566,28 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success btn-sm" id="adicionarComprovante" data-dismiss="modal">Adicionar</button>
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalComprovanteEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Adicionar Comprovante</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="anexosEventos">
+                <input type="text" id="comprovanteEventes" class="form-control form-control-sm" placeholder="Comprovante">
+                <input type="text" id="dataComprovanteEventos" class="form-control form-control-sm datepicker-modal" placeholder="Data">
+                <input type="text" id="localComprovanteEventos" class="form-control form-control-sm" placeholder="Local">
+                <input type="file" id="anexoEventos" class="form-control form-control-sm" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success btn-sm" id="adicionarComprovanteEventos" data-dismiss="modal">Adicionar</button>
                 <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

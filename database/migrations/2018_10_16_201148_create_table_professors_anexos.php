@@ -21,7 +21,7 @@ class CreateTableProfessorsAnexos extends Migration
             $table->string('arquivo',50);
             $table->integer('tipoComprovante');// 1 para Eventos e 2 para Publicação
             $table->integer('professor_id')->unsigned();
-            $table->foreign('professor_id')->references('id')->on('professors');
+            $table->foreign('professor_id')->references('id')->on('professors')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,6 +33,9 @@ class CreateTableProfessorsAnexos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('disciplinas_ministradas_outros_cursos');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Schema::dropIfExists('anexos');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
     }
 }

@@ -39,6 +39,13 @@ $(document).ready(function () {
         scrollCollapse: true,
         paging: false
     });
+    var table4  = $('#tblAnexoEventos').DataTable( {
+        searching: false,
+        scrollY: '175px',
+        sScrollX: "100%",
+        scrollCollapse: true,
+        paging: false
+    });
 
     $('.display').on('draw.dt',function () {
         $(".dataTables_scrollHeadInner").css({"width":"100%"});
@@ -62,6 +69,7 @@ $(document).ready(function () {
         $('#tempoTotalMagisteriaSuperior').val(dateDiff(dataVinculo));
     });
 
+    //metodos que adiciona as disciplinas ministradas
     $('#addDisciplinaMinistrada').on('click',function () {
         if(table1.data().count() == 0){
             counter1 = 0;
@@ -85,6 +93,7 @@ $(document).ready(function () {
         }
     });
 
+    //metodo que adiciona as disciplinas ministrada em outros cursos
     $('#addDiscMinistradasOutrosCursos').on('click',function () {
 
         if(table2.data().count() == 0){
@@ -114,10 +123,10 @@ $(document).ready(function () {
 
     });
 
+    //medoto que adiciona os anexos de Publicação
     $('#adicionarComprovante').on('click',function () {
         if(table3.data().count() == 0){
             counter1 = 0;
-            anexosComprovante = [];
         }
 
         var comprovante = $('#comprovantePublicacao').val();
@@ -154,6 +163,47 @@ $(document).ready(function () {
 
     });
 
+    //medoto que adiciona os anexos de Publicação
+    $('#adicionarComprovanteEventos').on('click',function () {
+        if(table4.data().count() == 0){
+            counter1 = 0;
+        }
+        var comprovanteEventos = $('#comprovanteEventes').val();
+        var dataEventos = $('#dataComprovanteEventos').val();
+        var localEventos = $('#localComprovanteEventos').val();
+        var anexoEventos = $('#anexoEventos')[0].files[0];
+
+        if(comprovanteEventos.trim().length != 0 && dataEventos.trim().length != 0 && localEventos.trim().length != 0 && anexoEventos.length != 0){
+
+            comprovanteEventos = "<input type='text' class='form-control form-control-sm' name='comprovateEventos["+counter4+"][comprovante]' readonly='readonly'value='"+comprovanteEventos+"'/>";
+            dataEventos = "<input type='text' class='form-control form-control-sm' name='comprovateEventos["+counter4+"][data]' readonly='readonly'value='"+dataEventos+"' />";
+            localEventos = "<input type='text' class='form-control form-control-sm' name='comprovateEventos["+counter4+"][local]' readonly='readonly' value='"+localEventos+"' />";
+            anexoEventos = anexoEventos.name+"<span id='anexoEventos_"+counter4+"' style='display: none'></span>";
+
+            table4.row.add([
+                anexoEventos,
+                '<button class="btn btn-sm btn-danger"><i class="fa fa-minus"></i></button>'
+            ]).draw( false );
+
+
+            var clone = $('#anexoEventos').clone();
+            clone.attr('id', 'anexoEventos_'+counter4);
+            clone.attr('name','comprovateEventos['+counter4+'][anexo]');
+            console.log(clone);
+            $('#anexoEventos_'+counter4).html(clone);
+            $('#anexoEventos_'+counter4).append(comprovanteEventos+dataEventos+anexoEventos+localEventos);
+
+            $('#qtdParicipacaoEventos').val(table4.data().count()-1);
+
+            $('#anexosEventos input').val('');
+
+            counter4 += 1;
+        }
+
+    });
+
+
+    //mtodos que remove disciplinas e anexos
     $('#tblDisciplinaOutroCurso').on("click", "button", function(){
         table2.row($(this).parents('tr')).remove().draw(false);
     });
@@ -164,7 +214,11 @@ $(document).ready(function () {
     $('#tblAnexoComprovante').on("click", "button", function(){
         table3.row($(this).parents('tr')).remove().draw(false);
     });
-
+    $('#tblAnexoEventos').on("click", "button", function(){
+        table4.row($(this).parents('tr')).remove().draw(false);
+        $('#qtdParicipacaoEventos').val(table4.data().count());
+    });
+    //metodo que salva um novo professor
     $('#formProfessor').on('submit',function (e) {
         e.preventDefault();
         var form = new FormData($(this)[0]);
@@ -183,17 +237,19 @@ $(document).ready(function () {
                     // window.location.href = '/disciplinas/'+data.disciplina_id;
                 },
                 error: function (data) {
-                    // var erros = data.responseJSON.errors;
-                    // $.each(erros, function (key, value) {
-                    //     $('#error-'+key).text(''+value[0]).show();
-                    //     $('#'+key).addClass('is-invalid');
-                    // })
+                    var erros = data.responseJSON.errors;
+                    $.each(erros, function (key, value) {
+                        $('#error-'+key).text(''+value[0]).show();
+                        $('#'+key).addClass('is-invalid');
+                    })
                 }
             });
         }
     });
 
 });
+
+//metodo que conta os diass
 function dateDiff(data) {
     var totalMeses ='';
 
