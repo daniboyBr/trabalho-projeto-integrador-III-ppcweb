@@ -1,12 +1,14 @@
 var counter4 = 0;
+
+var table4  = $('#tblAnexoEventos').DataTable( {
+    searching: false,
+    scrollY: '175px',
+    sScrollX: "100%",
+    scrollCollapse: true,
+    paging: false
+});
+
 $(document).ready(function () {
-    var table4  = $('#tblAnexoEventos').DataTable( {
-        searching: false,
-        scrollY: '175px',
-        sScrollX: "100%",
-        scrollCollapse: true,
-        paging: false
-    });
 
     //medoto que adiciona os anexos de Publicação
     $('#adicionarComprovanteEventos').on('click',function () {

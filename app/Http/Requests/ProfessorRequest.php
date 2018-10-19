@@ -68,7 +68,7 @@ class ProfessorRequest extends FormRequest
             'comprovatePublicacao.*.comprovante'=>'required|string|max:50',
             'comprovatePublicacao.*.data'=>'required|date_format:"d/m/Y"',
             'comprovatePublicacao.*.local'=>'required|string|max:50',
-            'comprovatePublicacao.*.anexo'=>'required|file|mimes:pdf|max:10000',
+            'comprovatePublicacao.*.anexo'=>'nullable|file|mimes:pdf|max:10000',
             'DisciplinasMinistradas'=>'required|array|min:1',
             'DisciplinasMinistradas.*.disciplina'=>'required|string|max:50',
             'DisciplinasMinistradas.*.cargaHoraria'=>'required|integer|min:0',
@@ -80,7 +80,7 @@ class ProfessorRequest extends FormRequest
             'comprovateEventos.*.comprovante'=>'required|string|max:50',
             'comprovateEventos.*.data'=>'required|date_format:"d/m/Y"',
             'comprovateEventos.*.local'=>'required|string|max:50',
-            'comprovateEventos.*.anexo'=>'required|file|mimes:pdf|max:10000',
+            'comprovateEventos.*.anexo'=>'nullable|file|mimes:pdf|max:10000',
         ];
     }
 

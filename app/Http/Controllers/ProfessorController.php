@@ -60,7 +60,7 @@ class ProfessorController extends Controller
             if($key ==  'cpfProfessor'){
                 $value = str_replace(['.','-'],['',''],$value);
             }elseif (in_array($key, $datas)){
-                $value =  date('Y-m-d', strtotime(str_replace('-', '/', $value)));
+                $value =  date('Y-m-d', strtotime(str_replace('/', '-', $value)));
             }
         });
         $professor = Professor::where('cpfProfessor',$form['cpfProfessor'])->get();
@@ -79,7 +79,7 @@ class ProfessorController extends Controller
                 $this->insertDisciplinasMinistradasOutrosCurso($form['DisciplinasMinistradasOutrosCursos'], $professor->id);
 
             }
-            return response()->json(['message'=>'Professor cadastrado com sucesso']);
+            return response()->json(true);
         }else{
             return response()->json(['message'=>'Professor já existe na base de dados'],422);
         }
@@ -100,8 +100,7 @@ class ProfessorController extends Controller
             $professor = Professor::with(['anexoComprovantes','disciplinasMinistradasOutrosCursos','disciplinasMinistradas'])->find($id);
             if(request()->ajax()){
                 if(!empty($professor)){
-                    $storage = new Storage();
-                    array_walk_recursive($professor, function (&$value, $key, $storage){
+                    array_walk_recursive($professor, function (&$value, $key){
                         $datas = [
                             'dataAtualizacaoCurriculo',
                             'dataAdmissao',
@@ -114,7 +113,7 @@ class ProfessorController extends Controller
                         if (in_array($key, $datas)){
                             $value =  date('d/m/Y', strtotime($value));
                         }
-                    },$storage);
+                    });
                     return response()->json($professor);
                 }else{
                     $data = ['message' => 'Professor não encontrado'];
@@ -134,7 +133,19 @@ class ProfessorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $professor = Professor::with(['anexoComprovantes','disciplinasMinistradasOutrosCursos','disciplinasMinistradas'])->find($id);
+                if(!empty($professor)){
+                    return response()->json($professor);
+                }else{
+                    $data = ['error' => 'Professor não encontrado'];
+                    return response()->json($data, 404);
+                }
+            }
+            return view('professor/professor_edit', ['professor_id'=>$id]);
+        }
     }
 
     /**

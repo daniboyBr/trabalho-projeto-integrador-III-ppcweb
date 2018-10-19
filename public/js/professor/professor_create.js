@@ -25,14 +25,20 @@ $(document).ready(function () {
                 processData: false, // Don't process the files
                 contentType: false,
                 success: function (data) {
-                    alert(data.message);
+                    alert('Professor cadastrado com sucesso!');
                 },
                 error: function (data) {
+                    var error = data.responseJSON.message;
                     var erros = data.responseJSON.errors;
-                    $.each(erros, function (key, value) {
-                        $('#error-'+key).text(''+value[0]).show();
-                        $('#'+key).addClass('is-invalid');
-                    })
+                    if(erros.length != 0){
+                        $.each(erros, function (key, value) {
+                            $('#error-'+key).text(''+value[0]).show();
+                            $('#'+key).addClass('is-invalid');
+                        });
+                    }
+                    if(error.length != 0){
+                        alert(error);
+                    }
                 }
             });
         }

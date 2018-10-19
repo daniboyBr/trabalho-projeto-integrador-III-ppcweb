@@ -1,12 +1,14 @@
 var counter3 = 0;
+
+var table3  = $('#tblAnexoComprovante').DataTable( {
+    searching: false,
+    scrollY: '175px',
+    sScrollX: "100%",
+    scrollCollapse: true,
+    paging: false
+});
+
 $(document).ready(function () {
-    var table3  = $('#tblAnexoComprovante').DataTable( {
-        searching: false,
-        scrollY: '175px',
-        sScrollX: "100%",
-        scrollCollapse: true,
-        paging: false
-    });
 
     //medoto que adiciona os anexos de Publicação
     $('#adicionarComprovante').on('click',function () {

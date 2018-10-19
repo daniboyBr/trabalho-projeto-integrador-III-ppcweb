@@ -1,13 +1,14 @@
 var counter2 = 0;
 
+var table2 = $('#tblDisciplinaOutroCurso').DataTable( {
+    searching: false,
+    scrollY: '175px',
+    sScrollX: "100%",
+    scrollCollapse: true,
+    paging: false,
+});
+
 $(document).ready(function () {
-    var table2 = $('#tblDisciplinaOutroCurso').DataTable( {
-        searching: false,
-        scrollY: '175px',
-        sScrollX: "100%",
-        scrollCollapse: true,
-        paging: false,
-    });
 
     //metodo que adiciona as disciplinas ministrada em outros cursos
     $('#addDiscMinistradasOutrosCursos').on('click',function () {

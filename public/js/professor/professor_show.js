@@ -10,7 +10,6 @@ $(document).ready(function () {
         url: '/professor/'+$('#professor_id').val(),
         dataType: 'json',
         success: function (data) {
-            console.log(data);
             $.each(data, function (key, value) {
                 $('#'+key).val(value).trigger('change');
                 if(key == 'id'){
@@ -103,10 +102,14 @@ function comprovantes(dados) {
         info: false,
     });
     $.each(dados, function (key,value) {
+
         if(value.tipoComprovante == 2){
+            var data = value.data;
+            data = data.split('-');
+            data = data[2]+'/'+data[1]+'/'+data[0];
             publicacao.row.add([
                 value.comprovante,
-                value.data,
+                data,
                 value.local,
                 "<a href='/professor/anexo/download/"+value.arquivo+"' class='btn btn-sm btn-dark'><i class='fa fa-file-pdf fa-1x'></i></a>",
                 ''
