@@ -34,5 +34,16 @@
     </div>
 @endsection
 @section('js')
+    <script src="/js/professor/professor_disciplinasMinistradas.js"></script>
+    <script src="/js/professor/professor_disciplinasMinistradasOutrosCursos.js"></script>
+    <script src="/js/professor/professor_AnexoPublicacao.js"></script>
+    <script src="/js/professor/professor_AnexoEvento.js"></script>
+    <script src="/js/professor/professor_dataDiff.js"></script>
     <script src="/js/professor/professor_create.js"></script>
+    <script>
+        $('.display').on('draw.dt',function () {
+            $(".dataTables_scrollHeadInner").css({"width":"100%"});
+            $(".table").css({"width":"100%"});
+        }).trigger('draw.dt');
+    </script>
 @endsection

@@ -17,4 +17,8 @@ class DisciplinasMinistradas extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function professor(){
+        return $this->belongsTo('App\Professor','professor_id');
+    }
 }

@@ -1,7 +1,7 @@
 $(document).ready(function() {
     $('#tableDisciplinas').DataTable({
         language:{
-            url:"/js/DataTables/datatable-pt-br.json"
+            url:"/js/plugins/DataTables/datatable-pt-br.json"
         },
         searching: false,
         // paging: false,

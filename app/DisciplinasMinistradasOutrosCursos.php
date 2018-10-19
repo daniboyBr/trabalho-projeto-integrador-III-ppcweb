@@ -19,4 +19,7 @@ class DisciplinasMinistradasOutrosCursos extends Model
         'id'
     ];
 
+    public function professor(){
+        return $this->belongsTo('App\Professor','professor_id');
+    }
 }

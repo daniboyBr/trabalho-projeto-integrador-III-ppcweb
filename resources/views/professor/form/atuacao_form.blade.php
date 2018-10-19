@@ -138,7 +138,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p class="text-center">Disciplinas Ministradas no curso</p>
-                        <div class="row">
+                        <div class="row disciplinas">
                             <div class="col-md-5">
                                 <input type="text" id="DisciplinasMinistradas" class="form-control form-control-sm" placeholder="Disciplina">
                             </div>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="col-md-6">
                         <p class="text-center">Disciplinas Ministradas em outro Curso</p>
-                        <div class="row">
+                        <div class="row disciplinas">
                             <div class="col-md-4">
                                 <input type="text" id="cursoDiscOutroCurso" class="form-control form-control-sm" placeholder="Curso">
                             </div>
@@ -181,19 +181,23 @@
                                 </button>
                             </div>
                         </div>
-                        <table id="tblDisciplinaOutroCurso" class="table display" style="width: 100% !important;">
-                            <thead>
-                                <tr>
-                                    <th>Curso</th>
-                                    <th>Disciplina</th>
-                                    <th>Carga Hoŕaria</th>
-                                    <th>-</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="tblDisciplinaOutroCurso" class="table display" style="width: 100% !important;">
+                                    <thead>
+                                    <tr>
+                                        <th>Curso</th>
+                                        <th>Disciplina</th>
+                                        <th>Carga Hoŕaria</th>
+                                        <th>-</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
