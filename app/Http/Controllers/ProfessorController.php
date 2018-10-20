@@ -77,11 +77,10 @@ class ProfessorController extends Controller
             }
             if($request->has('DisciplinasMinistradasOutrosCursos')){
                 $this->insertDisciplinasMinistradasOutrosCurso($form['DisciplinasMinistradasOutrosCursos'], $professor->id);
-
             }
             return response()->json(true);
         }else{
-            return response()->json(['message'=>'Professor já existe na base de dados'],422);
+            return response()->json(['message'=>'Professor já existe na base de dados'],404);
         }
         //$profesor =  Professor::create($form);
 
@@ -155,9 +154,55 @@ class ProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfessorRequest $request, $id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $request->validated();
+                $form = $request->all();
+                array_walk_recursive($form, function (&$value, $key){
+                    $datas = [
+                        'dataAtualizacaoCurriculo',
+                        'dataAdmissao',
+                        'tempoVinculo',
+                        'tempoExpMagisterioSuperior',
+                        'tempoCursosEAD',
+                        'tempoExpProfissional',
+                        'data'
+                    ];
+                    if($key ==  'cpfProfessor'){
+                        $value = str_replace(['.','-'],['',''],$value);
+                    }elseif (in_array($key, $datas)){
+                        $value =  date('Y-m-d', strtotime(str_replace('/', '-', $value)));
+                    }
+                });
+                try{
+                    $professor = Professor::with([
+                            'anexoComprovantes',
+                            'disciplinasMinistradasOutrosCursos',
+                            'disciplinasMinistradas']
+                    )->find($id)->update($form);
+                    if($request->has('DisciplinasMinistradas')){
+                        if($professor->disciplinasMinistradas()->exists()){
+                            $professor->disciplinasMinistradas()->delete();
+                        }
+                        $this->insertDisciplinasMinistradas($form['DisciplinasMinistradas'], $professor->id);
+                    }elseif($request->has('DisciplinasMinistradasOutrosCursos')){
+                        if($professor->disciplinasMinistradasOutrosCursos()->exists()){
+                            $professor->disciplinasMinistradasOutrosCursos()->delete();
+                        }
+                        $this->insertDisciplinasMinistradasOutrosCurso($form['DisciplinasMinistradasOutrosCursos'], $professor->id);
+                    }
+                    return response()->json(['professor_id'=>$id]);
+                }catch (Exception $e){
+                    return response()->json(['error'=>'Não foi possivel atualizar a Disciplina.'],422);
+                }
+            }
+//            return view('disciplina/discipkina_edit',['coordenador_id'=>$id]);
+        }else{
+            abort(404,'Página não encontrada');
+        }
     }
 
     /**
@@ -203,6 +248,17 @@ class ProfessorController extends Controller
         }
     }
 
+    private function removeAnexo($id)
+    {
+        $arquivo =  AnexosComprovantes::where('id',$id)->get(['arquivo']);
+        $exists = Storage::disk('local')->exists('comprovantes/'.$arquivo);
+        if($exists){
+            Storage::disk('local')->delete('comprovantes/'.$arquivo);
+            $arquivo->delete();
+        }else{
+            return abort(404, 'Arquivo ou página não encontrada');
+        }
+    }
     private function insertDisciplinasMinistradas($dados, $professor){
         foreach ($dados as $key => $value){
             $disciplina =  new DisciplinasMinistradas();
@@ -234,7 +290,11 @@ class ProfessorController extends Controller
             $anexo->tipoComprovante = $tipo;
             $anexo->professor()->associate($professor);
             $anexo->save();
-            Storage::putFileAs('comprovantes', $value['anexo'], $anexo->arquivo);
+            $exists = Storage::disk('local')->exists('comprovantes/'.$anexo->arquivo);
+            if(!$exists){
+                Storage::putFileAs('comprovantes', $value['anexo'], $anexo->arquivo);
+            }
+
         }
     }
 }
