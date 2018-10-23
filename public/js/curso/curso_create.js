@@ -20,6 +20,7 @@ $(document).ready(function () {
         var confirmacao = confirm('Realmente deseja salvar os dados?');
         if(confirmacao){
             $.ajax({
+                cache: false,
                 method: 'POST',
                 url: '/cursos',
                 data: $(this).serialize(),

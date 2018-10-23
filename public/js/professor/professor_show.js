@@ -5,13 +5,17 @@ $(document).ready(function () {
     $('#btnAtualizar').show();
     $('#btnRemover').show();
 
+    $('#btnAtualizar').on('click',function () {
+        window.location.href = '/professor/'+$('#professor_id').val()+'/edit';
+    });
+
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/professor/'+$('#professor_id').val(),
         dataType: 'json',
         success: function (data) {
             $.each(data, function (key, value) {
-                $('#'+key).val(value).trigger('change');
                 if(key == 'id'){
                     $('#disciplina_id').val(value);
                 }else if(key ==  'disciplinas_ministradas'){
@@ -22,11 +26,18 @@ $(document).ready(function () {
                     comprovantes(value);
                 }else if((key == 'membroNDE' || key == 'membroColegiado' || key == 'docenteFCEP') && value == 1 ){
                     $('#'+key).attr('checked','checked');
+                }else if(key == 'cpfProfessor'){
+                    var cpf = value;
+                    cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g,"\$1.\$2.\$3\-\$4");
+                    $('#'+key).val(cpf).attr('readonly','readonly');
+                }else{
+                    $('#'+key).val(value).trigger('change');
                 }
+
             });
         },
         error: function (data) {
-            error = data.responseJSON.message;
+            var error = data.responseJSON.message;
             alert(error);
             window.location.href = '/professor';
         }
@@ -129,6 +140,7 @@ function remover(){
     var confirmacao = confirm('Realmente deseja remover os dados?');
     if(confirmacao){
         $.ajax({
+            cache: false,
             method: 'POST',
             url: '/professor/'+id,
             data: {

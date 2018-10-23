@@ -17,6 +17,7 @@ $(document).ready(function () {
     $('#formCoordenador').submit(function (e) {
         e.preventDefault();
         $.ajax({
+            cache: false,
             method:'POST',
             url: '/coordenador',
             dataType: 'json',

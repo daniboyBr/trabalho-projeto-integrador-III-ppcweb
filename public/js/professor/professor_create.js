@@ -18,6 +18,7 @@ $(document).ready(function () {
         var confirmacao = confirm('Realmente deseja submeter os dados?');
         if(confirmacao){
             $.ajax({
+                cache: false,
                 method: 'POST',
                 url: '/professor',
                 data: form,
@@ -26,18 +27,22 @@ $(document).ready(function () {
                 contentType: false,
                 success: function (data) {
                     alert('Professor cadastrado com sucesso!');
+                    window.location.href = '/professor/'+ data.professor_id;
                 },
                 error: function (data) {
-                    var error = data.responseJSON.message;
-                    var erros = data.responseJSON.errors;
-                    if(erros.length != 0){
-                        $.each(erros, function (key, value) {
-                            $('#error-'+key).text(''+value[0]).show();
-                            $('#'+key).addClass('is-invalid');
-                        });
+                    var erros = data.responseJSON;
+                    if(erros.hasOwnProperty('error')){
+                        console.log(data.responseJSON.error);
+                        alert(data.responseJSON.error);
                     }
-                    if(error.length != 0){
-                        alert(error);
+                    if(erros.hasOwnProperty('errors')){
+                        var erros = data.responseJSON.errors;
+                        if(erros.length != 0){
+                            $.each(erros, function (key, value) {
+                                $('#error-'+key).text(''+value[0]).show();
+                                $('#'+key).addClass('is-invalid');
+                            });
+                        }
                     }
                 }
             });

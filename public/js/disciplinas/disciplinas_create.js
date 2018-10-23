@@ -18,6 +18,7 @@ $(document).ready(function () {
         var confirmacao = confirm('Realmente deseja submeter os dados?');
         if(confirmacao){
             $.ajax({
+                cache: false,
                 method: 'POST',
                 url: '/disciplinas',
                 data: $(this).serialize(),

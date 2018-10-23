@@ -14,6 +14,7 @@ $(document).ready(function () {
     }).appendTo($('#formCoordenador'));
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/coordenador/'+$('#coordenador_id').val(),
         dataType: 'json',
@@ -82,6 +83,7 @@ function remover(){
             url = '/coordenador/remove';
         }
         $.ajax({
+            cache: false,
             method: 'POST',
             url: url,
             data: {
@@ -115,6 +117,7 @@ function ativar() {
             var confirmacao = confirm('Realmente deseja reativar o coordenador?');
             if(confirmacao){
                 $.ajax({
+                    cache: false,
                     method: 'POST',
                     url: '/coordenador/restore',
                     dataType: 'json',

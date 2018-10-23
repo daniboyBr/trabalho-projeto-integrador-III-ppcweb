@@ -14,6 +14,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/disciplinas',
         dataType: 'json',
@@ -31,6 +32,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/cursos/'+$('#curso_id').val(),
         dataType: 'json',
@@ -61,6 +63,7 @@ $(document).ready(function () {
     $('#search-disciplina').autocomplete({
         source: function (request, responce) {
             $.ajax({
+                cache: false,
                 method: 'GET',
                 url: '/disciplinas',
                 dataType: 'json',
@@ -89,6 +92,7 @@ function remover(){
     if(confirmacao){
         var formData = new FormData();
         $.ajax({
+            cache: false,
             method: 'POST',
             url: '/cursos/'+id,
             data: {
@@ -156,6 +160,7 @@ function adicionarDisciplina() {
         var confirmacao = confirm('Deseja realmente adicionar a disciplina?');
         if(confirmacao){
             $.ajax({
+                cache: false,
                 method: 'POST',
                 url: '/cursos/disciplinas/add',
                 dataType: 'json',
@@ -193,6 +198,7 @@ function removeDisciplina(disciplina_id) {
         var confirmacao = confirm('Deseja realmente remover a disciplina?');
         if(confirmacao){
             $.ajax({
+                cache: false,
                 method: 'POST',
                 url: '/cursos/disciplinas/remove',
                 dataType: 'json',

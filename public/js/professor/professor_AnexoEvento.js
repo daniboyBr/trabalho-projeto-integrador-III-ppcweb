@@ -22,9 +22,9 @@ $(document).ready(function () {
 
         if(comprovanteEventos.trim().length != 0 && dataEventos.trim().length != 0 && localEventos.trim().length != 0 && anexoEventos.length != 0){
 
-            comprovanteEventos = "<input type='text' class='form-control form-control-sm' name='comprovateEventos["+counter4+"][comprovante]' readonly='readonly'value='"+comprovanteEventos+"'/>";
-            dataEventos = "<input type='text' class='form-control form-control-sm' name='comprovateEventos["+counter4+"][data]' readonly='readonly'value='"+dataEventos+"' />";
-            localEventos = "<input type='text' class='form-control form-control-sm' name='comprovateEventos["+counter4+"][local]' readonly='readonly' value='"+localEventos+"' />";
+            comprovanteEventos = "<input type='text' class='form-control form-control-sm' name='comprovanteEventos["+counter4+"][comprovante]' readonly='readonly'value='"+comprovanteEventos+"'/>";
+            dataEventos = "<input type='text' class='form-control form-control-sm' name='comprovanteEventos["+counter4+"][data]' readonly='readonly'value='"+dataEventos+"' />";
+            localEventos = "<input type='text' class='form-control form-control-sm' name='comprovanteEventos["+counter4+"][local]' readonly='readonly' value='"+localEventos+"' />";
             anexoEventos = anexoEventos.name+"<span id='anexoEventos_"+counter4+"' style='display: none'></span>";
 
             table4.row.add([
@@ -35,14 +35,14 @@ $(document).ready(function () {
 
             var clone = $('#anexoEventos').clone();
             clone.attr('id', 'anexoEventos_'+counter4);
-            clone.attr('name','comprovateEventos['+counter4+'][anexo]');
+            clone.attr('name','comprovanteEventos['+counter4+'][anexo]');
             $('#anexoEventos_'+counter4).html(clone);
             $('#anexoEventos_'+counter4).append(comprovanteEventos+dataEventos+anexoEventos+localEventos);
 
             $('#qtdParicipacaoEventos').val(table4.data().count()-1);
 
             $('#anexosEventos input').val('');
-
+ name='comprovanteEventos["+counter4+"][comprovante]'
             counter4 += 1;
         }
 
