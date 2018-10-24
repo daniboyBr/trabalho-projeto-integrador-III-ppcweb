@@ -19,9 +19,31 @@ class ProfessorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(request()->ajax()){
+            if($request->has('search')){
+                $data = Professor::select(['id','nomeProfessor','matriculaProfessor'])->where($request->search, 'LIKE', '%'.$request->term.'%')
+                    ->take(10)
+                    ->get();
+
+                $results = [];
+                foreach ($data as $key => $value){
+                    $busca = '';
+                    if($request->search == 'matriculaProfessor'){
+                        $busca = $value->matriculaProfessor;
+                    }else{
+                        $busca = $value->nomeProfessor;
+                    }
+                    $busca =
+                    $results[] = [
+                        'id' => $value->id,
+                        'nomeProfessor'=>$value->nomeProfessor,
+                        'value' => $busca
+                    ];
+                }
+                return response()->json($results);
+            }
             $data = Professor::get(['id','cpfProfessor','nomeProfessor','dataAdmissao','areaFormacao','matriculaProfessor']);
             return response()->json(['data'=>$data]);
         }

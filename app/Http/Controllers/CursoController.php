@@ -18,9 +18,23 @@ class CursoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(request()->ajax()){
+            if($request->has('search')){
+                $data = Curso::select(['id','denominacaoCurso'])->where($request->search, 'LIKE', '%'.$request->term.'%')
+                    ->take(10)
+                    ->get();
+
+                $results = [];
+                foreach ($data as $key => $value){
+                    $results[] = [
+                        'id' => $value->id,
+                        'value' => $value->denominacaoCurso,
+                    ];
+                }
+                return response()->json($results);
+            }
             if(request()->has('coordenador_id')){
                 $id = (int) filter_var(request()->get('coordenador_id'), FILTER_SANITIZE_NUMBER_INT);
                 if(is_integer($id)){
