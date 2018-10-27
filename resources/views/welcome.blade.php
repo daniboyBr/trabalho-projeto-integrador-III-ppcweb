@@ -34,6 +34,12 @@
 @section('conteudo')
     <div class="row d-flex justify-content-center align-middle">
         <div class="dashboard bg-primary col-md-2 text-center mr-3">
+            <a href="/cadastroppc">
+                <i class="fas fa-project-diagram fa-5x"></i><br>
+                <strong>Cadastro de PPC</strong>
+            </a>
+        </div>
+        <div class="dashboard bg-primary col-md-2 text-center mr-3">
             <a href="/coordenador">
                 <i class="fas fa-user-tie fa-5x"></i><br>
                 <strong>Coordenador</strong>

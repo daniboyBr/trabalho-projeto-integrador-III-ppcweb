@@ -29,5 +29,5 @@ Route::resource('coordenador', 'CoordenadorController');
 Route::resource('disciplinas', 'DisciplinasController');
 Route::resource('professor', 'ProfessorController');
 Route::get('professor/anexo/download/{arquivo}', 'ProfessorController@downloadAnexo');
-
+Route::resource('cadastroppc', 'CadastroppcController');
 
