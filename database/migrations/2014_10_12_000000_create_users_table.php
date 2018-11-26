@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('tipoUsuario')->default('0');//1 -Coordenador / 2 - Professor
             $table->rememberToken();
             $table->timestamps();
         });

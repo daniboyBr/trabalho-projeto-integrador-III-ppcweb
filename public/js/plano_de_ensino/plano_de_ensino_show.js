@@ -1,4 +1,23 @@
+var tableAtiviade = $('#tblCronogramaDeAtividades').DataTable({
+    searching: false,
+    scrollY: '175px',
+    sScrollX: "100%",
+    scrollCollapse: true,
+    paging: false
+});
+
+var tblBibliografia = $('#tblBibliografia').DataTable({
+    searching: false,
+    scrollY: '175px',
+    sScrollX: "100%",
+    scrollCollapse: true,
+    paging: false
+});
 $(document).ready(function () {
+
+    $('#aula').hide();
+    $('#conteudo').hide();
+
     $('#formPlanoDeEnsino :input').prop('disabled',true);
     $('#formPlanoDeEnsino select').prop('disabled',true);
     $('#formPlanoDeEnsino textarea').prop('disabled',true);
@@ -17,17 +36,34 @@ $(document).ready(function () {
         dataType: 'json',
         success: function (data) {
             $.each(data, function (key, value) {
-                $('#'+key).val(value);
                 if(key == 'id'){
                     $('#planoDeEnsino_id').val(value);
-                }else if(key == 'professor'){
+                }else if(key === 'professor'){
                     $('#nomeProfessor').val(value.nomeProfessor);
                     $('#search-professor').val(value.matriculaProfessor);
-                }else if(key == 'disciplina'){
+                }else if(key === 'disciplina'){
                     $('#nomeDisciplina').val(value.nomeDisciplina);
                     $('#search-disciplina').val(value.codigoDisciplina);
-                }else if(key == 'curso'){
+                }else if(key === 'curso'){
                     $('#search-curso').val(value.denominacaoCurso);
+                }else if(key === 'cronograma_atividade') {
+                    $.each(value, function (chave, valor) {
+                        tableAtiviade.row.add([
+                            valor.aula,
+                            valor.conteudo,
+                            '-'
+                        ]).draw(false);
+                    });
+                }else if(key === 'bibliografia'){
+                        $.each(value, function (chave, valor) {
+                            tblBibliografia.row.add([
+                                valor.titulo,
+                                valor.autor,
+                                '-'
+                            ]).draw( false );
+                        });
+                }else{
+                    $('#'+key).val(value);
                 }
             });
         },

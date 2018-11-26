@@ -10,7 +10,6 @@ class Bibliografia extends Model
 
     protected $fillable = [
         'planoDeEnsino_id',
-        'aula',
         'titulo',
         'autor',
         'isbn',

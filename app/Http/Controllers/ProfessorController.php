@@ -9,11 +9,19 @@ use App\Professor;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfessorRequest;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
 class ProfessorController extends Controller
 {
+    private $permissao = [1,3];
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -101,7 +109,7 @@ class ProfessorController extends Controller
             if($request->has('DisciplinasMinistradasOutrosCursos')){
                 $this->insertDisciplinasMinistradasOutrosCurso($form['DisciplinasMinistradasOutrosCursos'], $professor->id);
             }
-            return response()->json(true);
+            return response()->json(['professor_id'=>$professor->id]);
         }else{
             $data = ['error'=>'Professor já existe na base de dados'];
             return response()->json($data,422);

@@ -57,6 +57,11 @@
                 <strong>Professor</strong>
             </a>
         </div>
-
+        <div class="dashboard bg-primary col-md-2 text-center ml-3">
+            <a href="/planoDeEnsino">
+                <i class="fas fa-chart-bar fa-5x"></i><br>
+                <strong>Plano de Ensino</strong>
+            </a>
+        </div>
     </div>
 @endsection

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var id = $('#coordenador_id').val();
+    $('#cpfCoordenador').attr('readonly', 'readonly');
 
     $('.error').hide();
 

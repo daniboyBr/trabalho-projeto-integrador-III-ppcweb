@@ -89,6 +89,31 @@
     <div class="row">
         <div class="col-md-12">
             <p style="text-align: center"><b>Cronograma de Atividades</b></p>
+            <table id="tblCronogramaDeAtividades" class="table display" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>Aula</th>
+                        <th>Conteúdo</th>
+                        <th>-</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-2">
+                    <input type="number" value="" id="aula" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-9">
+                    <input type="text" value="" id="conteudo" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-1">
+                    <a class="btn btn-sm btn-primary" id="btnAddAtividade"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="col-md-10 offset-2">
+                    <small class="text-danger error" id="error-cronograma"></small>
+                </div>
+            </div>
+
         </div>
     </div>
     <div class="row">
@@ -102,9 +127,28 @@
         <div class="col-md-12">
             <p style="text-align: center"><b>Bibliografia</b></p>
         </div>
+        <div class="col-md-12">
+            <table class="table display" style="width: 100%" id="tblBibliografia">
+                <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Autor</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-md-10 offset-2">
+            <small class="text-danger error" id="error-bibliografia"></small>
+        </div>
+        <div class="col-md-12 text-center">
+            <a href="" class="btn btn-sm btn-primary" id="addModal" data-toggle="modal" data-target="#modalBibliografia"><i class="fa fa-plus" ></i> Incluir Bibliografia</a>
+        </div>
     </div>
 <div class="row d-flex flex-row-reverse">
     <a href="#" class="btn btn-danger btn-sm ml-2" id="btnCancelar">Cancelar</a>
     <button type="submit" id="btnSalvar" class="btn btn-success btn-sm ">Salvar</button>
 </div>
+    @include('plano_de_ensino.modal_bibliografia')
 </form>

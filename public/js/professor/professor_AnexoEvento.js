@@ -42,7 +42,7 @@ $(document).ready(function () {
             $('#qtdParicipacaoEventos').val(table4.data().count()-1);
 
             $('#anexosEventos input').val('');
- name='comprovanteEventos["+counter4+"][comprovante]'
+            //name='comprovanteEventos["+counter4+"][comprovante]'
             counter4 += 1;
         }
 

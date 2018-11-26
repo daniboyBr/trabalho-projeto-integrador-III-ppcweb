@@ -7,11 +7,16 @@ use App\Curso;
 use App\Disciplina;
 use App\Http\Requests\CursoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Mockery\Exception;
 
 class CursoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
