@@ -9,6 +9,12 @@ use Mockery\Exception;
 
 class DisciplinasController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,11 +27,20 @@ class DisciplinasController extends Controller
                 $data = Disciplina::select(['id','nomeDisciplina','codigoDisciplina'])->where($request->search, 'LIKE', '%'.$request->term.'%')
                 ->take(10)
                 ->get();
+
                 $results = [];
                 foreach ($data as $key => $value){
+                    $busca = '';
+                    if($request->search == 'codigoDisciplina'){
+                        $busca = $value->codigoDisciplina;
+                    }else{
+                        $busca = $value->nomeDisciplina;
+                    }
+                    $busca =
                     $results[] = [
                         'id' => $value->id,
-                        'value' => $value->codigoDisciplina.' - '.$value->nomeDisciplina
+                        'nomeDisciplina'=>$value->nomeDisciplina,
+                        'value' => $busca
                     ];
                 }
                 return response()->json($results);

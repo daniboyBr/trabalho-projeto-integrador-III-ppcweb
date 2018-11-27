@@ -22,6 +22,7 @@ $(document).ready(function () {
     }).appendTo($('#formDisciplinas'));
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/cursos',
         success: function (data) {
@@ -39,6 +40,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/disciplinas/'+id,
         dataType: 'json',
@@ -72,6 +74,7 @@ $(document).ready(function () {
     $('#formDisciplinas').submit(function (e) {
         e.preventDefault();
         $.ajax({
+            cache: false,
             method:'POST',
             url: '/disciplinas/'+id,
             dataType: 'json',

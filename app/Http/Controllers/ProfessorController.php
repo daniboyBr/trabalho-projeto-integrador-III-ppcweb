@@ -8,18 +8,50 @@ use App\DisciplinasMinistradasOutrosCursos;
 use App\Professor;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProfessorRequest;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 
 class ProfessorController extends Controller
 {
+    private $permissao = [1,3];
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(request()->ajax()){
+            if($request->has('search')){
+                $data = Professor::select(['id','nomeProfessor','matriculaProfessor'])->where($request->search, 'LIKE', '%'.$request->term.'%')
+                    ->take(10)
+                    ->get();
+
+                $results = [];
+                foreach ($data as $key => $value){
+                    $busca = '';
+                    if($request->search == 'matriculaProfessor'){
+                        $busca = $value->matriculaProfessor;
+                    }else{
+                        $busca = $value->nomeProfessor;
+                    }
+                    $busca =
+                    $results[] = [
+                        'id' => $value->id,
+                        'nomeProfessor'=>$value->nomeProfessor,
+                        'value' => $busca
+                    ];
+                }
+                return response()->json($results);
+            }
             $data = Professor::get(['id','cpfProfessor','nomeProfessor','dataAdmissao','areaFormacao','matriculaProfessor']);
             return response()->json(['data'=>$data]);
         }
@@ -45,7 +77,6 @@ class ProfessorController extends Controller
     public function store(ProfessorRequest $request)
     {
         $request->validated();
-        echo '<pre>';
         $form  = $request->all();
         array_walk_recursive($form, function (&$value, $key){
             $datas = [
@@ -60,28 +91,28 @@ class ProfessorController extends Controller
             if($key ==  'cpfProfessor'){
                 $value = str_replace(['.','-'],['',''],$value);
             }elseif (in_array($key, $datas)){
-                $value =  date('Y-m-d', strtotime(str_replace('-', '/', $value)));
+                $value =  date('Y-m-d', strtotime(str_replace('/', '-', $value)));
             }
         });
         $professor = Professor::where('cpfProfessor',$form['cpfProfessor'])->get();
         if(count($professor) == 0){
             $professor =  Professor::create($form);
-            if($request->has('comprovateEventos')){
-                $this->insertAnexo($form['comprovateEventos'], $professor, 1);
+            if($request->has('comprovanteEventos')){
+                $this->insertAnexo($form['comprovanteEventos'], $professor, 1);
             }
-            if($request->has('comprovatePublicacao')){
-                $this->insertAnexo($form['comprovatePublicacao'], $professor, 2);
+            if($request->has('comprovantePublicacao')){
+                $this->insertAnexo($form['comprovantePublicacao'], $professor, 2);
             }
             if($request->has('DisciplinasMinistradas')){
                 $this->insertDisciplinasMinistradas($form['DisciplinasMinistradas'], $professor->id);
             }
             if($request->has('DisciplinasMinistradasOutrosCursos')){
                 $this->insertDisciplinasMinistradasOutrosCurso($form['DisciplinasMinistradasOutrosCursos'], $professor->id);
-
             }
-            return response()->json(['message'=>'Professor cadastrado com sucesso']);
+            return response()->json(['professor_id'=>$professor->id]);
         }else{
-            return response()->json(['message'=>'Professor já existe na base de dados'],422);
+            $data = ['error'=>'Professor já existe na base de dados'];
+            return response()->json($data,422);
         }
         //$profesor =  Professor::create($form);
 
@@ -100,8 +131,7 @@ class ProfessorController extends Controller
             $professor = Professor::with(['anexoComprovantes','disciplinasMinistradasOutrosCursos','disciplinasMinistradas'])->find($id);
             if(request()->ajax()){
                 if(!empty($professor)){
-                    $storage = new Storage();
-                    array_walk_recursive($professor, function (&$value, $key, $storage){
+                    array_walk_recursive($professor, function (&$value, $key){
                         $datas = [
                             'dataAtualizacaoCurriculo',
                             'dataAdmissao',
@@ -114,7 +144,7 @@ class ProfessorController extends Controller
                         if (in_array($key, $datas)){
                             $value =  date('d/m/Y', strtotime($value));
                         }
-                    },$storage);
+                    });
                     return response()->json($professor);
                 }else{
                     $data = ['message' => 'Professor não encontrado'];
@@ -134,7 +164,19 @@ class ProfessorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $professor = Professor::with(['anexoComprovantes','disciplinasMinistradasOutrosCursos','disciplinasMinistradas'])->find($id);
+                if(!empty($professor)){
+                    return response()->json($professor);
+                }else{
+                    $data = ['error' => 'Professor não encontrado'];
+                    return response()->json($data, 422);
+                }
+            }
+            return view('professor/professor_edit', ['professor_id'=>$id]);
+        }
     }
 
     /**
@@ -144,9 +186,69 @@ class ProfessorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProfessorRequest $request, $id)
     {
-        //
+        $id = (int) filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+        if(is_int($id)){
+            if(request()->ajax()){
+                $request->validated();
+                $form = $request->all();
+                array_walk_recursive($form, function (&$value, $key){
+                    $datas = [
+                        'dataAtualizacaoCurriculo',
+                        'dataAdmissao',
+                        'tempoVinculo',
+                        'tempoExpMagisterioSuperior',
+                        'tempoCursosEAD',
+                        'tempoExpProfissional',
+                        'data'
+                    ];
+                    if($key ==  'cpfProfessor'){
+                        $value = str_replace(['.','-'],['',''],$value);
+                    }elseif (in_array($key, $datas)){
+                        $value =  date('Y-m-d', strtotime(str_replace('/', '-', $value)));
+                    }
+                });
+                try{
+                    $professor = Professor::with([
+                            'anexoComprovantes',
+                            'disciplinasMinistradasOutrosCursos',
+                            'disciplinasMinistradas']
+                    )->find($id);
+                    if($professor->cpfProfessor == $form['cpfProfessor']){
+                        $professor->update($form);
+                        if($request->has('DisciplinasMinistradas')){
+                            if($professor->disciplinasMinistradas()->exists()){
+                                $professor->disciplinasMinistradas()->delete();
+                            }
+                            $this->insertDisciplinasMinistradas($form['DisciplinasMinistradas'], $professor->id);
+                        }elseif($request->has('DisciplinasMinistradasOutrosCursos')){
+                            if($professor->disciplinasMinistradasOutrosCursos()->exists()){
+                                $professor->disciplinasMinistradasOutrosCursos()->delete();
+                            }
+                            $this->insertDisciplinasMinistradasOutrosCurso($form['DisciplinasMinistradasOutrosCursos'], $professor->id);
+                        }
+                        if($request->has('comprovanteEventos')){
+                            $this->insertAnexo($form['comprovanteEventos'], $professor, 1);
+                        }
+                        if($request->has('comprovantePublicacao')){
+                            $this->insertAnexo($form['comprovantePublicacao'], $professor, 2);
+                        }
+                        if($request->has('comprovantesRemovidos')){
+                            $comprovante = explode('|',$form['comprovantesRemovidos']);
+                            foreach ($comprovante as $comprovante_id){
+                                $this->removerAnexo($comprovante_id);
+                            }
+                        }
+                    }
+                    return response()->json(['professor_id'=>$id],200);
+                }catch (Exception $e){
+                    return response()->json(['error'=>'Não foi possivel atualizar a Disciplina.'],422);
+                }
+            }
+        }else{
+            abort(404,'Página não encontrada');
+        }
     }
 
     /**
@@ -192,6 +294,16 @@ class ProfessorController extends Controller
         }
     }
 
+    private function removerAnexo($id)
+    {
+        $file =  AnexosComprovantes::find($id);
+        $exists = Storage::disk('local')->exists('comprovantes/'.$file->arquivo);
+        if($exists){
+            $file_path = storage_path().'/app/comprovantes/'.$file->arquivo;
+            unlink($file_path);
+            $file->delete();
+        }
+    }
     private function insertDisciplinasMinistradas($dados, $professor){
         foreach ($dados as $key => $value){
             $disciplina =  new DisciplinasMinistradas();
@@ -215,15 +327,22 @@ class ProfessorController extends Controller
 
     private function insertAnexo($dados, $professor, $tipo){
         foreach ($dados as $key => $value){
-            $anexo =  new AnexosComprovantes();
-            $anexo->comprovante = $value['comprovante'];
-            $anexo->data = $value['data'];
-            $anexo->local = $value['local'];
-            $anexo->arquivo =  uniqid($professor->cpfProfessor.'-'.$value['data']).'.'.$value['anexo']->extension();
-            $anexo->tipoComprovante = $tipo;
-            $anexo->professor()->associate($professor);
-            $anexo->save();
-            Storage::putFileAs('comprovantes', $value['anexo'], $anexo->arquivo);
+            $exists = false;
+            if(isset($value['arquivo'])){
+                $exists = Storage::disk('local')->exists('comprovantes/'.$value['arquivo']);
+            }
+            if(!$exists){
+                $anexo =  new AnexosComprovantes();
+                $anexo->comprovante = $value['comprovante'];
+                $anexo->data = $value['data'];
+                $anexo->local = $value['local'];
+                $anexo->arquivo =  uniqid($professor->cpfProfessor.'-'.$value['data']).'.'.$value['anexo']->extension();
+                $anexo->tipoComprovante = $tipo;
+                $anexo->professor()->associate($professor);
+                $anexo->save();
+                Storage::putFileAs('comprovantes', $value['anexo'], $anexo->arquivo);
+            }
+
         }
     }
 }

@@ -10,24 +10,28 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware('auth');
 
 Route::get('/cache', function() {
     $exitCode = Artisan::call('cache:clear');
     return redirect('/');
-});
+})->middleware('auth');
 
-Route::post('cursos/disciplinas/add', 'CursoController@addDisciplinas');
-Route::delete('cursos/disciplinas/remove', 'CursoController@removeDisciplinas');
-Route::resource('cursos', 'CursoController');
-Route::post('coordenador/restore', 'CoordenadorController@restore');
-Route::delete('coordenador/remove', 'CoordenadorController@remove');
-Route::resource('coordenador', 'CoordenadorController');
-Route::resource('disciplinas', 'DisciplinasController');
-Route::resource('professor', 'ProfessorController');
-Route::get('professor/anexo/download/{arquivo}', 'ProfessorController@downloadAnexo');
-Route::resource('cadastroppc', 'CadastroppcController');
+Route::post('cursos/disciplinas/add', 'CursoController@addDisciplinas')->middleware('auth');
+Route::delete('cursos/disciplinas/remove', 'CursoController@removeDisciplinas')->middleware('auth');
+Route::resource('cursos', 'CursoController')->middleware('auth');
+Route::post('coordenador/restore', 'CoordenadorController@restore')->middleware('auth');
+Route::delete('coordenador/remove', 'CoordenadorController@remove')->middleware('auth');
+Route::resource('coordenador', 'CoordenadorController')->middleware('auth');
+Route::resource('disciplinas', 'DisciplinasController')->middleware('auth');
+Route::resource('professor', 'ProfessorController')->middleware('auth');
+Route::get('professor/anexo/download/{arquivo}', 'ProfessorController@downloadAnexo')->middleware('auth');
+Route::resource('planoDeEnsino', 'PlanoDeEnsinoController')->middleware('auth');
+Route::resource('cadastroppc', 'CadastroppcController')->middleware('auth');
 

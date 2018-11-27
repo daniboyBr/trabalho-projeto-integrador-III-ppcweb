@@ -26,6 +26,7 @@ $(document).ready(function () {
     }).appendTo($('#formCursos'));
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/cursos/'+id+'/edit',
         dataType: 'json',
@@ -72,6 +73,7 @@ $(document).ready(function () {
         var corfirmacao = confirm("Realmente deseja salvar os dados? ");
         if(corfirmacao){
             $.ajax({
+                cache: false,
                 method: 'POST',
                 url: '/cursos/'+$('#curso_id').val(),
                 data: $(this).serialize(),

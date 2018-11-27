@@ -17,6 +17,7 @@ $(document).ready(function () {
     $('#formCoordenador').submit(function (e) {
         e.preventDefault();
         $.ajax({
+            cache: false,
             method:'POST',
             url: '/coordenador',
             dataType: 'json',
@@ -30,11 +31,19 @@ $(document).ready(function () {
                 }
             },
             error: function (data) {
-                var erros = data.responseJSON.errors;
-                $.each(erros, function (key, value) {
-                    $('#error-'+key).text(''+value[0]).show();
-                    $('#'+key).addClass('is-invalid');
-                })
+                var erros = data.responseJSON;
+                if(erros.hasOwnProperty('errors')){
+                    $.each(erros.errors, function (key, value) {
+                        $('#error-'+key).text(''+value[0]).show();
+                        $('#'+key).addClass('is-invalid');
+                    });
+                }
+                if(erros.hasOwnProperty('message')){
+                    var message = erros.message;
+                    if(message.search('invalid') == -1){
+                        alert(erros.message);
+                    }
+                }
             }
         });
     });

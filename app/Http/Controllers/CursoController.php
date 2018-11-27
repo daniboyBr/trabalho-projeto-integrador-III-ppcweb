@@ -7,20 +7,39 @@ use App\Curso;
 use App\Disciplina;
 use App\Http\Requests\CursoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Mockery\Exception;
 
 class CursoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(request()->ajax()){
+            if($request->has('search')){
+                $data = Curso::select(['id','denominacaoCurso'])->where($request->search, 'LIKE', '%'.$request->term.'%')
+                    ->take(10)
+                    ->get();
+
+                $results = [];
+                foreach ($data as $key => $value){
+                    $results[] = [
+                        'id' => $value->id,
+                        'value' => $value->denominacaoCurso,
+                    ];
+                }
+                return response()->json($results);
+            }
             if(request()->has('coordenador_id')){
                 $id = (int) filter_var(request()->get('coordenador_id'), FILTER_SANITIZE_NUMBER_INT);
                 if(is_integer($id)){

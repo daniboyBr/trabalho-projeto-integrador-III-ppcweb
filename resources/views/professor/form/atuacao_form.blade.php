@@ -151,6 +151,11 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small class="text-danger error" id="error-DisciplinasMinistradas"></small>
+                            </div>
+                        </div>
                         <table id="tblDisciplinaCurso" class="table display" style="width: 100% !important;">
                             <thead>
                                 <tr>
@@ -179,6 +184,11 @@
                                 <button type="button" class="btn btn-sm btn-primary" id="addDiscMinistradasOutrosCursos">
                                     <i class="fa fa-plus"></i>
                                 </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <small class="text-danger error" id="error-DisciplinasMinistradasOutrosCursos"></small>
                             </div>
                         </div>
                         <div class="row">
@@ -342,6 +352,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <small class="text-danger error" id="error-qtdParicipacaoEventos"></small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             <label for="number">Anexar Comporvantes</label>
                                         </div>
                                         <div class="col-md-10">
@@ -356,7 +371,7 @@
                                             </table>
                                         </div>
                                         <div class="col-md-2">
-                                            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalComprovanteEventos" id="addComprovateEventos"><i class="fa fa-plus"></i></a>
+                                            <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modalComprovanteEventos" id="addComprovanteEventos"><i class="fa fa-plus"></i></a>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -528,6 +543,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label>Anexar Comprovantes</label>
+                    </div>
+                    <div class="col-md-12">
+                        <small class="text-danger error" id="error-comprovantePublicacao"></small>
                     </div>
                     <div class="col-md-1 justify-content-center align-self-center">
                         <button type="button" class="btn btn-primary btn-sm" id="addComprovante" data-toggle="modal" data-target="#modalComprovantePublicacao"><i class="fa fa-plus "></i></button>

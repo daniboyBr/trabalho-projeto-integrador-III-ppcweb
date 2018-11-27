@@ -1,13 +1,14 @@
 var counter1 = 0;
 
+var table1 = $('#tblDisciplinaCurso').DataTable( {
+    searching: false,
+    scrollY:'175px',
+    sScrollX: "100%",
+    scrollCollapse: true,
+    paging: false,
+});
+
 $(document).ready(function () {
-    var table1 = $('#tblDisciplinaCurso').DataTable( {
-        searching: false,
-        scrollY:        '175px',
-        sScrollX: "100%",
-        scrollCollapse: true,
-        paging: false,
-    });
 
     //metodos que adiciona as disciplinas ministradas
     $('#addDisciplinaMinistrada').on('click',function () {
@@ -36,9 +37,4 @@ $(document).ready(function () {
             table1.row($(this).parents('tr')).remove().draw(false);
         });
     });
-
-
-
-
-
 });

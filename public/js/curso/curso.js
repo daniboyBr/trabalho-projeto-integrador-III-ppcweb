@@ -2,6 +2,7 @@ $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/coordenador',
         dataType:'json',

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var id = $('#coordenador_id').val();
+    $('#cpfCoordenador').attr('readonly', 'readonly');
 
     $('.error').hide();
 
@@ -8,6 +9,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/coordenador/'+id,
         dataType: 'json',
@@ -43,6 +45,7 @@ $(document).ready(function () {
     $('#formCoordenador').submit(function (e) {
         e.preventDefault();
         $.ajax({
+            cache: false,
             method:'POST',
             url: '/coordenador/'+id,
             dataType: 'json',

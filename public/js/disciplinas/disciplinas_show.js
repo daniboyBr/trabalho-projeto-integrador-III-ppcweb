@@ -9,6 +9,7 @@ $(document).ready(function () {
     });
 
     $.ajax({
+        cache: false,
         method: 'GET',
         url: '/disciplinas/'+$('#disciplina_id').val(),
         dataType: 'json',
@@ -35,6 +36,7 @@ function remover(){
     var confirmacao = confirm('Realmente deseja remover os dados?');
     if(confirmacao){
         $.ajax({
+            cache: false,
             method: 'POST',
             url: '/disciplinas/'+id,
             data: {
