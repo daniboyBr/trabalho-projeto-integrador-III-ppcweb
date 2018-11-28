@@ -15,7 +15,6 @@
             border-radius: 5px;
             color: white;
         }
-
         a {
             color: white;
             text-decoration: none;
