@@ -32,4 +32,8 @@ class Curso extends Model
     public function disciplinas(){
         return $this->belongsToMany('App\Disciplina')->withTimestamps();
     }
+    
+    public function cadastroppc(){
+        return $this->belongsTo('App\Cadastroppc');
+    }
 }

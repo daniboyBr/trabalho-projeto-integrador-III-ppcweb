@@ -27,7 +27,7 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top justify-content-between">
-            <a class="navbar-brand" href="/">PPCWeb</a>
+            <a class="navbar-brand" href="/home">PPCWeb</a>
             <!-- Links -->
             <ul class="navbar-nav">
                 {{--<li class="nav-item">--}}

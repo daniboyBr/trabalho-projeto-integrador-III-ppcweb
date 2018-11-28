@@ -33,7 +33,5 @@ Route::resource('disciplinas', 'DisciplinasController')->middleware('auth');
 Route::resource('professor', 'ProfessorController')->middleware('auth');
 Route::get('professor/anexo/download/{arquivo}', 'ProfessorController@downloadAnexo')->middleware('auth');
 Route::resource('planoDeEnsino', 'PlanoDeEnsinoController')->middleware('auth');
-
-
-
+Route::resource('cadastroppc', 'CadastroppcController')->middleware('auth');
 
